@@ -242,11 +242,12 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     back_translation_time = time.time() - start_time
                     
                     # Calculate BERTScore
-                    print(f"        Calculating BERTScore...")
                     start_time = time.time()
                     if rescaling:
+                        print(f"        Calculating BERTScore with rescaling on...")
                         score = calculate_bert_score_rescaling(item[field], back_translated_text)
                     else:
+                        print(f"        Calculating BERTScore...")
                         score = calculate_bert_score(item[field], back_translated_text)
                     bertscore_time = time.time() - start_time
                     
@@ -454,9 +455,9 @@ def main():
                         help='Maximum number of iterations for translation')
     parser.add_argument('--save_interval', type=int, default=1, 
                         help='Interval for saving intermediate results')
-    parser.add_argument('--resume', type=bool, default=False,
+    parser.add_argument('--resume', action='store_true',
                         help='Resume from previous processing')
-    parser.add_argument('--rescaling', type=bool, default=False,
+    parser.add_argument('--rescaling', action='store_true',
                         help='Enable rescaling with normalized BERTScore')
     
     args = parser.parse_args()

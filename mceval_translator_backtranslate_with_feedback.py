@@ -525,9 +525,9 @@ def main():
                         help='Maximum number of iterations for translation')
     parser.add_argument('--save_interval', type=int, default=1, 
                         help='Interval for saving intermediate results')
-    parser.add_argument('--resume', type=bool, default=False,
+    parser.add_argument('--resume', action='store_true',
                         help='Resume from previous processing')
-    parser.add_argument('--rescaling', type=bool, default=False,
+    parser.add_argument('--rescaling', action='store_true',
                         help='Enable rescaling with normalized BERTScore')
     
     args = parser.parse_args()
