@@ -24,7 +24,7 @@ Don't forget to add your API key in an environmental variable source file and na
 Currently in the code the sleep time between each translation is set to randomized between 1 to 2 seconds to avoid hitting the rate limit. Modify it base on your own preference.
 
 ### An example of the script running command without rescaling:
-`python mceval_translator.py --dataset generation --start_idx 0 --end_idx 5 --languages Spanish French German --max_iterations 3 --save_interval 2 --rescaling`
+`python mceval_translator.py --dataset generation --start_idx 0 --end_idx 5 --languages Spanish French German --max_iterations 3 --save_interval 2`
 
 ### An example of the script running command with rescaling on:
 `python mceval_translator.py --dataset generation --start_idx 0 --end_idx 5 --languages Spanish French German --max_iterations 3 --save_interval 2 --rescaling`
