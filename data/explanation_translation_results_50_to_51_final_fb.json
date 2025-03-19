@@ -1,0 +1,850 @@
+[
+  {
+    "task_id": "C#/1",
+    "original": {
+      "prompt": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if in given list of numbers, any two numbers are closer to each other than\n   the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+      "instruction": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nProvide a concise natural language description (docstring) of the C# code in English using at most 500 characters.",
+      "docstring": "Check if in given list of numbers, any two numbers are closer to each other than\n   the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true"
+    },
+    "translations": {
+      "Chinese": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* 检查在给定的数字列表中，是否有任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if there is any pair of numbers in the given list where the distance between them is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.9600081563431977,
+              "time_taken": {
+                "translation_time": 2.102084159851074,
+                "back_translation_time": 1.6225483417510986,
+                "bertscore_times": 2.151714563369751
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* 检查在给定的数字列表中，是否有任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if there is any pair of numbers in the given list where the distance between them is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.9600081563431977
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n提供一个简洁的自然语言描述（文档字符串）关于这段C#代码的功能，使用最多500个字符的英文。",
+              "back_translated_text": "The provided C# code defines a static method `HasCloseElements` that takes a list of double numbers and a double threshold as parameters. The method checks if there are any two distinct elements in the list whose absolute difference is less than the specified threshold. It iterates through each pair of elements in the list, calculates the absolute difference between them, and if this difference is less than the threshold, the method returns true. If no such pair is found, it returns false.",
+              "score": 0.2545101867885284,
+              "time_taken": {
+                "translation_time": 1.1334939002990723,
+                "back_translation_time": 1.4171631336212158,
+                "bertscore_times": 0.9108805656433105
+              }
+            },
+            {
+              "translated_text": "给定的C#代码定义了一个静态方法`HasCloseElements`，该方法接受一个双精度数的列表和一个双精度阈值作为参数。方法检查列表中是否存在任意两个不同的元素，其绝对差小于指定的阈值。它遍历列表中的每一对元素，计算它们之间的绝对差，如果该差值小于阈值，方法返回true。如果没有找到这样的对，则返回false。",
+              "back_translated_text": "The given C# code defines a static method `HasCloseElements`, which takes a list of double precision numbers and a double precision threshold as parameters. The method checks whether there are any two distinct elements in the list whose absolute difference is less than the specified threshold. It iterates through each pair of elements in the list, calculates the absolute difference between them, and if the difference is less than the threshold, the method returns true. If no such pair is found, it returns false.",
+              "score": 0.24962983832650115,
+              "time_taken": {
+                "translation_time": 1.4586737155914307,
+                "back_translation_time": 0.8936853408813477,
+                "bertscore_times": 1.0152056217193604
+              }
+            },
+            {
+              "translated_text": "给定的C#代码定义了一个静态方法`HasCloseElements`，它接受一个双精度数的列表和一个双精度阈值作为参数。该方法检查列表中是否存在任意两个不同的元素，其绝对差小于指定的阈值。它遍历列表中的每一对元素，计算它们之间的绝对差，如果差值小于阈值，方法返回true。如果没有找到这样的对，则返回false。",
+              "back_translated_text": "The given C# code defines a static method `HasCloseElements`, which takes a list of doubles and a double threshold as parameters. The method checks if there are any two distinct elements in the list whose absolute difference is less than the specified threshold. It iterates through each pair of elements in the list, calculates their absolute difference, and if the difference is less than the threshold, the method returns true. If no such pair is found, it returns false.",
+              "score": 0.24954561904494238,
+              "time_taken": {
+                "translation_time": 1.2560434341430664,
+                "back_translation_time": 1.0257232189178467,
+                "bertscore_times": 1.02266263961792
+              }
+            }
+          ],
+          "best_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n提供一个简洁的自然语言描述（文档字符串）关于这段C#代码的功能，使用最多500个字符的英文。",
+          "best_back_translation": "The provided C# code defines a static method `HasCloseElements` that takes a list of double numbers and a double threshold as parameters. The method checks if there are any two distinct elements in the list whose absolute difference is less than the specified threshold. It iterates through each pair of elements in the list, calculates the absolute difference between them, and if this difference is less than the threshold, the method returns true. If no such pair is found, it returns false.",
+          "best_score": 0.2545101867885284
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "检查在给定的数字列表中，是否有任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check whether there is a distance between any two numbers in the given list of numbers that is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9410987426990574,
+              "time_taken": {
+                "translation_time": 1.2534658908843994,
+                "back_translation_time": 1.3094382286071777,
+                "bertscore_times": 0.9399464130401611
+              }
+            },
+            {
+              "translated_text": "检查给定数字列表中，是否存在任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check if there is any pair of numbers in the given list whose distance is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9313320868635719,
+              "time_taken": {
+                "translation_time": 2.0904102325439453,
+                "back_translation_time": 1.0715141296386719,
+                "bertscore_times": 0.9173901081085205
+              }
+            },
+            {
+              "translated_text": "检查给定的数字列表中，是否存在任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check if there exists a distance between any two numbers in the given list of numbers that is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9447724115962977,
+              "time_taken": {
+                "translation_time": 1.0482158660888672,
+                "back_translation_time": 1.0098609924316406,
+                "bertscore_times": 0.8762609958648682
+              }
+            }
+          ],
+          "best_translation": "检查给定的数字列表中，是否存在任意两个数字之间的距离小于给定的阈值。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check if there exists a distance between any two numbers in the given list of numbers that is less than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9447724115962977
+        },
+        "best_score": 0.9600081563431977
+      },
+      "Bengali": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* প্রদত্ত সংখ্যার তালিকায়, কোনো দুটি সংখ্যা পরস্পরের তুলনায় প্রদত্ত সীমার চেয়ে\n   কাছাকাছি আছে কিনা তা পরীক্ষা করুন।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* In the given list of numbers, check if any two numbers are closer to each other\n   than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.9835949181999476,
+              "time_taken": {
+                "translation_time": 2.4016804695129395,
+                "back_translation_time": 1.1675307750701904,
+                "bertscore_times": 0.9250383377075195
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* প্রদত্ত সংখ্যার তালিকায়, কোনো দুটি সংখ্যা পরস্পরের তুলনায় প্রদত্ত সীমার চেয়ে\n   কাছাকাছি আছে কিনা তা পরীক্ষা করুন।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* In the given list of numbers, check if any two numbers are closer to each other\n   than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.9835949181999476
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC# কোডের একটি সংক্ষিপ্ত প্রাকৃতিক ভাষার বর্ণনা (ডকস্ট্রিং) প্রদান করুন, যা সর্বাধিক ৫০০ অক্ষরের মধ্যে ইংরেজিতে হবে।",
+              "back_translated_text": "Provide a concise natural language description (docstring) in English, with a maximum of 500 characters, for the C# code.",
+              "score": 0.36500131569490046,
+              "time_taken": {
+                "translation_time": 2.1617753505706787,
+                "back_translation_time": 0.5217480659484863,
+                "bertscore_times": 2.0920963287353516
+              }
+            },
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nএই C# কোডটি একটি তালিকার মধ্যে দুটি উপাদানের মধ্যে দূরত্ব নির্ণয় করে এবং যদি সেই দূরত্ব একটি নির্দিষ্ট সীমার (threshold) চেয়ে কম হয়, তাহলে সত্য (true) প্রদান করে। যদি কোনো দুটি উপাদানের মধ্যে দূরত্ব সীমার চেয়ে কম না হয়, তাহলে মিথ্যা (false) প্রদান করে।",
+              "back_translated_text": "This C# code calculates the distance between two elements in a list and returns true if that distance is less than a specified threshold. If the distance between any two elements is not less than the threshold, it returns false.",
+              "score": 0.26159453795851867,
+              "time_taken": {
+                "translation_time": 3.7876639366149902,
+                "back_translation_time": 0.6338236331939697,
+                "bertscore_times": 0.9902346134185791
+              }
+            },
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nএই C# কোডটি একটি তালিকার দুটি উপাদানের মধ্যে দূরত্ব গণনা করে এবং যদি সেই দূরত্ব নির্দিষ্ট সীমার চেয়ে কম হয় তবে সত্য প্রদান করে। যদি কোনো দুটি উপাদানের মধ্যে দূরত্ব সীমার চেয়ে কম না হয়, তবে এটি মিথ্যা প্রদান করে।",
+              "back_translated_text": "This C# code calculates the distance between two elements in a list and returns true if that distance is less than a specified threshold. If the distance between any two elements is not less than the threshold, it returns false.",
+              "score": 0.26159453795851867,
+              "time_taken": {
+                "translation_time": 1.9376096725463867,
+                "back_translation_time": 0.6415023803710938,
+                "bertscore_times": 0.8909056186676025
+              }
+            }
+          ],
+          "best_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC# কোডের একটি সংক্ষিপ্ত প্রাকৃতিক ভাষার বর্ণনা (ডকস্ট্রিং) প্রদান করুন, যা সর্বাধিক ৫০০ অক্ষরের মধ্যে ইংরেজিতে হবে।",
+          "best_back_translation": "Provide a concise natural language description (docstring) in English, with a maximum of 500 characters, for the C# code.",
+          "best_score": 0.36500131569490046
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "যাচাই করুন যে প্রদত্ত সংখ্যার তালিকায়, কোনো দুটি সংখ্যা দেওয়া থ্রেশহোল্ডের চেয়ে কাছাকাছি আছে কিনা।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check whether in the given list of numbers, any two numbers are closer than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9462629339755834,
+              "time_taken": {
+                "translation_time": 1.492048740386963,
+                "back_translation_time": 0.7661738395690918,
+                "bertscore_times": 1.116744041442871
+              }
+            },
+            {
+              "translated_text": "দেওয়া সংখ্যার তালিকায় পরীক্ষা করুন, কোনো দুটি সংখ্যা একে অপরের থেকে দেওয়া সীমার চেয়ে কাছাকাছি আছে কিনা।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check in the given list of numbers if any two numbers are closer to each other than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9493697117653501,
+              "time_taken": {
+                "translation_time": 1.486785888671875,
+                "back_translation_time": 1.0342788696289062,
+                "bertscore_times": 0.9243128299713135
+              }
+            },
+            {
+              "translated_text": "প্রদত্ত সংখ্যার তালিকায় দেখুন, কোনো দুটি সংখ্যা প্রদত্ত সীমার চেয়ে কাছাকাছি আছে কিনা।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check in the given list of numbers if any two numbers are closer than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9362783806121027,
+              "time_taken": {
+                "translation_time": 1.4237713813781738,
+                "back_translation_time": 1.4332106113433838,
+                "bertscore_times": 2.158585548400879
+              }
+            }
+          ],
+          "best_translation": "দেওয়া সংখ্যার তালিকায় পরীক্ষা করুন, কোনো দুটি সংখ্যা একে অপরের থেকে দেওয়া সীমার চেয়ে কাছাকাছি আছে কিনা।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check in the given list of numbers if any two numbers are closer to each other than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9493697117653501
+        },
+        "best_score": 0.9835949181999476
+      },
+      "Farsi": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* بررسی کنید که آیا در لیست داده شده از اعداد، هر دو عددی نزدیک‌تر از\n   آستانه داده شده به یکدیگر هستند یا خیر.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if in the given list of numbers, there are any two numbers\n   closer to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.9786079052233047,
+              "time_taken": {
+                "translation_time": 2.5484328269958496,
+                "back_translation_time": 2.0083208084106445,
+                "bertscore_times": 0.9606008529663086
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* بررسی کنید که آیا در لیست داده شده از اعداد، هر دو عددی نزدیک‌تر از\n   آستانه داده شده به یکدیگر هستند یا خیر.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if in the given list of numbers, there are any two numbers\n   closer to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.9786079052233047
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n// توضیح مختصر به زبان طبیعی (docstring) از کد C# به زبان انگلیسی با حداکثر ۵۰۰ کاراکتر ارائه دهید.\n```",
+              "back_translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n// Provide a brief natural language explanation (docstring) of the C# code in English with a maximum of 500 characters.\n```",
+              "score": 0.951105542665214,
+              "time_taken": {
+                "translation_time": 3.5703296661376953,
+                "back_translation_time": 1.4402790069580078,
+                "bertscore_times": 0.9403102397918701
+              }
+            }
+          ],
+          "best_translation": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n// توضیح مختصر به زبان طبیعی (docstring) از کد C# به زبان انگلیسی با حداکثر ۵۰۰ کاراکتر ارائه دهید.\n```",
+          "best_back_translation": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\n// Provide a brief natural language explanation (docstring) of the C# code in English with a maximum of 500 characters.\n```",
+          "best_score": 0.951105542665214
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "بررسی کنید که آیا در لیست داده شده از اعداد، هر دو عددی به یکدیگر نزدیک‌تر از\n   آستانه داده شده هستند یا خیر.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check if in the given list of numbers, any two numbers are closer to each other than the given threshold or not.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9718503010301167,
+              "time_taken": {
+                "translation_time": 2.1476311683654785,
+                "back_translation_time": 1.3501482009887695,
+                "bertscore_times": 0.8669037818908691
+              }
+            }
+          ],
+          "best_translation": "بررسی کنید که آیا در لیست داده شده از اعداد، هر دو عددی به یکدیگر نزدیک‌تر از\n   آستانه داده شده هستند یا خیر.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check if in the given list of numbers, any two numbers are closer to each other than the given threshold or not.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9718503010301167
+        },
+        "best_score": 0.9786079052233047
+      },
+      "French": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Vérifie si, dans la liste donnée de nombres, deux nombres quelconques sont plus proches\n   l'un de l'autre que le seuil donné.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Checks if, in the given list of numbers, any two numbers are closer\n   to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.978348493945673,
+              "time_taken": {
+                "translation_time": 1.8920783996582031,
+                "back_translation_time": 2.825664520263672,
+                "bertscore_times": 0.8963689804077148
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Vérifie si, dans la liste donnée de nombres, deux nombres quelconques sont plus proches\n   l'un de l'autre que le seuil donné.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Checks if, in the given list of numbers, any two numbers are closer\n   to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.978348493945673
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nFournir une description concise en langage naturel (docstring) du code C# en anglais en utilisant au maximum 500 caractères.",
+              "back_translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```\n\nProvide a concise natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+              "score": 0.8957087211768698,
+              "time_taken": {
+                "translation_time": 1.4892160892486572,
+                "back_translation_time": 1.2582056522369385,
+                "bertscore_times": 0.959322452545166
+              }
+            },
+            {
+              "translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    // Cette fonction vérifie si la liste 'numbers' contient au moins deux éléments\n    // dont la différence absolue est inférieure à 'threshold'.\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```",
+              "back_translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    // This function checks if the list 'numbers' contains at least two elements\n    // whose absolute difference is less than 'threshold'.\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```",
+              "score": 0.8813757515117734,
+              "time_taken": {
+                "translation_time": 1.654712200164795,
+                "back_translation_time": 1.6863791942596436,
+                "bertscore_times": 0.9841525554656982
+              }
+            },
+            {
+              "translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    // Cette fonction vérifie si la liste 'numbers' contient au moins deux éléments\n    // dont la différence absolue est inférieure à 'threshold'.\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```\n\nDocstring in English:\nThis function checks if there are at least two distinct elements in the list 'numbers' such that the absolute difference between them is less than the specified 'threshold'. It iterates through each pair of elements in the list, calculates their absolute difference, and returns true if any pair meets the condition; otherwise, it returns false.",
+              "back_translated_text": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    // This function checks if the list 'numbers' contains at least two elements\n    // whose absolute difference is less than 'threshold'.\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```",
+              "score": 0.8813757515117734,
+              "time_taken": {
+                "translation_time": 2.029141902923584,
+                "back_translation_time": 0.9577767848968506,
+                "bertscore_times": 0.9804904460906982
+              }
+            }
+          ],
+          "best_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nFournir une description concise en langage naturel (docstring) du code C# en anglais en utilisant au maximum 500 caractères.",
+          "best_back_translation": "```csharp\nstatic bool HasCloseElements(List<double> numbers, double threshold)\n{\n    for (int i = 0; i < numbers.Count; i++)\n    {\n        for (int j = 0; j < numbers.Count; j++)\n        {\n            if (i != j)\n            {\n                double distance = Math.Abs(numbers[i] - numbers[j]);\n                if (distance < threshold)\n                {\n                    return true;\n                }\n            }\n        }\n    }\n    return false;\n}\n```\n\nProvide a concise natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+          "best_score": 0.8957087211768698
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "Vérifiez si, dans la liste donnée de nombres, deux nombres quelconques sont plus proches l'un de l'autre que le seuil donné.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check if, in the given list of numbers, any two numbers are closer to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9742537286406389,
+              "time_taken": {
+                "translation_time": 1.0953176021575928,
+                "back_translation_time": 1.1070950031280518,
+                "bertscore_times": 0.960402250289917
+              }
+            }
+          ],
+          "best_translation": "Vérifiez si, dans la liste donnée de nombres, deux nombres quelconques sont plus proches l'un de l'autre que le seuil donné.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check if, in the given list of numbers, any two numbers are closer to each other than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9742537286406389
+        },
+        "best_score": 0.978348493945673
+      },
+      "Hindi": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* जाँच करें कि दिए गए संख्याओं की सूची में कोई दो संख्याएँ एक-दूसरे के\n   जितना निकट हैं, वह दिए गए सीमा से कम है या नहीं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if any two numbers in the given list of numbers are closer to each other\n   than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.9870441347666183,
+              "time_taken": {
+                "translation_time": 1.28068208694458,
+                "back_translation_time": 1.4343907833099365,
+                "bertscore_times": 1.1478543281555176
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* जाँच करें कि दिए गए संख्याओं की सूची में कोई दो संख्याएँ एक-दूसरे के\n   जितना निकट हैं, वह दिए गए सीमा से कम है या नहीं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if any two numbers in the given list of numbers are closer to each other\n   than the given threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.9870441347666183
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC# कोड का एक संक्षिप्त प्राकृतिक भाषा विवरण (docstring) प्रदान करें, जिसमें अधिकतम 500 वर्ण हों।",
+              "back_translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nProvide a concise natural language description (docstring) of the C# code, with a maximum of 500 characters.",
+              "score": 0.9951748707839005,
+              "time_taken": {
+                "translation_time": 1.1496994495391846,
+                "back_translation_time": 2.1582818031311035,
+                "bertscore_times": 0.9550464153289795
+              }
+            }
+          ],
+          "best_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC# कोड का एक संक्षिप्त प्राकृतिक भाषा विवरण (docstring) प्रदान करें, जिसमें अधिकतम 500 वर्ण हों।",
+          "best_back_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nProvide a concise natural language description (docstring) of the C# code, with a maximum of 500 characters.",
+          "best_score": 0.9951748707839005
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "दिए गए संख्याओं की सूची में जांचें कि क्या कोई दो संख्याएँ दी गई सीमा से अधिक करीब हैं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check in the given list of numbers if any two numbers are closer than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9362783806121027,
+              "time_taken": {
+                "translation_time": 1.194288730621338,
+                "back_translation_time": 0.6558101177215576,
+                "bertscore_times": 0.8626980781555176
+              }
+            },
+            {
+              "translated_text": "दिए गए संख्याओं की सूची में जाँच करें कि क्या कोई दो संख्याएँ दी गई सीमा से अधिक निकट हैं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check in the given list of numbers if any two numbers are closer than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9362783806121027,
+              "time_taken": {
+                "translation_time": 1.0954091548919678,
+                "back_translation_time": 0.8232998847961426,
+                "bertscore_times": 0.8613095283508301
+              }
+            },
+            {
+              "translated_text": "दिए गए संख्याओं की सूची में जाँच करें कि कोई दो संख्याएँ दी गई सीमा से अधिक निकट हैं या नहीं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check in the given list of numbers whether any two numbers are closer than the given limit or not.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9292671254223333,
+              "time_taken": {
+                "translation_time": 1.2179162502288818,
+                "back_translation_time": 1.1311533451080322,
+                "bertscore_times": 0.915656566619873
+              }
+            }
+          ],
+          "best_translation": "दिए गए संख्याओं की सूची में जांचें कि क्या कोई दो संख्याएँ दी गई सीमा से अधिक करीब हैं।\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check in the given list of numbers if any two numbers are closer than the given limit.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9362783806121027
+        },
+        "best_score": 0.9951748707839005
+      },
+      "Japanese": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* 与えられた数値のリストの中で、任意の2つの数値が指定されたしきい値よりも\n   近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if any two numbers in the given list of numbers are closer than\n   the specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+              "score": 0.9712198482007119,
+              "time_taken": {
+                "translation_time": 1.2528936862945557,
+                "back_translation_time": 1.5730175971984863,
+                "bertscore_times": 0.9899210929870605
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* 与えられた数値のリストの中で、任意の2つの数値が指定されたしきい値よりも\n   近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\n\nclass Program\n{\n    /* Check if any two numbers in the given list of numbers are closer than\n   the specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true\n    */\n    static bool HasCloseElements(List<double> numbers, double threshold)",
+          "best_score": 0.9712198482007119
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC#コードの簡潔な自然言語による説明（ドキュメンテーション文字列）を英語で提供してください。最大500文字で。",
+              "back_translated_text": "The provided C# code defines a static method `HasCloseElements` that checks if there are any two distinct elements in a list of doubles (`numbers`) that are closer to each other than a specified `threshold`. The method iterates over each pair of elements in the list, calculates the absolute difference between them, and compares this difference to the `threshold`. If any pair of elements has a difference smaller than the `threshold`, the method returns `true`. If no such pair is found after checking all possibilities, it returns `false`.",
+              "score": 0.2503262364424095,
+              "time_taken": {
+                "translation_time": 1.5787067413330078,
+                "back_translation_time": 2.302312135696411,
+                "bertscore_times": 0.9109714031219482
+              }
+            },
+            {
+              "translated_text": "指定されたC#コードは、`HasCloseElements`という静的メソッドを定義しています。このメソッドは、ダブル型のリスト`numbers`内に、指定された`threshold`よりも互いに近い2つの異なる要素が存在するかどうかを確認します。メソッドはリスト内の各要素のペアを反復処理し、それらの間の絶対差を計算して、この差を`threshold`と比較します。もしどのペアの要素も`threshold`より小さい差を持つ場合、メソッドは`true`を返します。すべての可能性を確認してもそのようなペアが見つからない場合、`false`を返します。",
+              "back_translated_text": "The specified C# code defines a static method called `HasCloseElements`. This method checks whether there are two distinct elements in a list of doubles, `numbers`, that are closer to each other than the specified `threshold`. The method iterates over each pair of elements in the list, calculates the absolute difference between them, and compares this difference to the `threshold`. If any pair of elements has a difference smaller than the `threshold`, the method returns `true`. If no such pair is found after checking all possibilities, it returns `false`.",
+              "score": 0.24446127718159233,
+              "time_taken": {
+                "translation_time": 1.567873477935791,
+                "back_translation_time": 0.9142892360687256,
+                "bertscore_times": 0.8999464511871338
+              }
+            },
+            {
+              "translated_text": "指定されたC#コードは、`HasCloseElements`という静的メソッドを定義しています。このメソッドは、ダブル型のリスト`numbers`内に、指定された`threshold`よりも互いに近い2つの異なる要素が存在するかどうかを確認します。メソッドはリスト内の各要素のペアを反復処理し、それらの間の絶対差を計算し、この差を`threshold`と比較します。もしどのペアでも差が`threshold`より小さい場合、メソッドは`true`を返します。すべての可能性を確認してもそのようなペアが見つからない場合は、`false`を返します。",
+              "back_translated_text": "The specified C# code defines a static method called `HasCloseElements`. This method checks whether there are two distinct elements in the list of doubles `numbers` that are closer to each other than the specified `threshold`. The method iterates over pairs of elements in the list, calculates the absolute difference between them, and compares this difference to the `threshold`. If any pair has a difference smaller than the `threshold`, the method returns `true`. If no such pair is found after checking all possibilities, it returns `false`.",
+              "score": 0.24218695931874287,
+              "time_taken": {
+                "translation_time": 1.606067180633545,
+                "back_translation_time": 0.8737237453460693,
+                "bertscore_times": 0.9259164333343506
+              }
+            }
+          ],
+          "best_translation": "static bool HasCloseElements(List<double> numbers, double threshold)\n    {\n        for (int i = 0; i < numbers.Count; i++)\n        {\n            for (int j = 0; j < numbers.Count; j++)\n            {\n                if (i != j)\n                {\n                    double distance = Math.Abs(numbers[i] - numbers[j]);\n                    if (distance < threshold)\n                    {\n                        return true;\n                    }\n                }\n            }\n        }\n        return false;\n    }\n\nC#コードの簡潔な自然言語による説明（ドキュメンテーション文字列）を英語で提供してください。最大500文字で。",
+          "best_back_translation": "The provided C# code defines a static method `HasCloseElements` that checks if there are any two distinct elements in a list of doubles (`numbers`) that are closer to each other than a specified `threshold`. The method iterates over each pair of elements in the list, calculates the absolute difference between them, and compares this difference to the `threshold`. If any pair of elements has a difference smaller than the `threshold`, the method returns `true`. If no such pair is found after checking all possibilities, it returns `false`.",
+          "best_score": 0.2503262364424095
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "与えられた数値のリストの中で、任意の2つの数値が指定された閾値よりも近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check whether any two numbers in a given list of numbers are closer than a specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9357631334036982,
+              "time_taken": {
+                "translation_time": 2.1664366722106934,
+                "back_translation_time": 0.7769012451171875,
+                "bertscore_times": 0.9214532375335693
+              }
+            },
+            {
+              "translated_text": "与えられた数のリストの中で、任意の2つの数が指定されたしきい値よりも近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check if any two numbers in the given list are closer than the specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9478501893504332,
+              "time_taken": {
+                "translation_time": 1.0369713306427002,
+                "back_translation_time": 0.8733701705932617,
+                "bertscore_times": 0.9784948825836182
+              }
+            },
+            {
+              "translated_text": "与えられた数値のリストの中で、任意の2つの数が指定されたしきい値よりも互いに近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "back_translated_text": "Check whether any two numbers in the given list of numbers are closer to each other than the specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+              "score": 0.9536986622896244,
+              "time_taken": {
+                "translation_time": 2.153320550918579,
+                "back_translation_time": 1.0978963375091553,
+                "bertscore_times": 1.1021344661712646
+              }
+            }
+          ],
+          "best_translation": "与えられた数値のリストの中で、任意の2つの数が指定されたしきい値よりも互いに近いかどうかを確認します。\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_back_translation": "Check whether any two numbers in the given list of numbers are closer to each other than the specified threshold.\n   >>> hasCloseElements([1.0, 2.0, 3.0], 0.5)\n   false\n   >>> hasCloseElements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n   true",
+          "best_score": 0.9536986622896244
+        },
+        "best_score": 0.9712198482007119
+      }
+    }
+  },
+  {
+    "task_id": "C#/2",
+    "original": {
+      "prompt": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+      "instruction": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language description (docstring) of the C# code in English using at most 500 characters.",
+      "docstring": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\""
+    },
+    "translations": {
+      "Chinese": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* 将给定的华氏温度转换为摄氏温度，并以格式化为两位小数的字符串形式返回结果。\n    使用的公式是：摄氏温度 = 5/9 * (华氏温度 - 32)。\n    示例用法：\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is: Celsius temperature = 5/9 * (Fahrenheit temperature - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 0.9872848747884326,
+              "time_taken": {
+                "translation_time": 1.7144043445587158,
+                "back_translation_time": 1.1850812435150146,
+                "bertscore_times": 0.8641328811645508
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* 将给定的华氏温度转换为摄氏温度，并以格式化为两位小数的字符串形式返回结果。\n    使用的公式是：摄氏温度 = 5/9 * (华氏温度 - 32)。\n    示例用法：\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is: Celsius temperature = 5/9 * (Fahrenheit temperature - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 0.9872848747884326
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\n提供一个简洁的自然语言描述（文档字符串），用英文描述这段C#代码，最多使用500个字符。",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language description (docstring) in English describing this C# code, using no more than 500 characters.",
+              "score": 0.9776544793943371,
+              "time_taken": {
+                "translation_time": 1.6046924591064453,
+                "back_translation_time": 1.2172234058380127,
+                "bertscore_times": 0.9558472633361816
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\n提供一个简洁的自然语言描述（文档字符串），用英文描述这段C#代码，最多使用500个字符。",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language description (docstring) in English describing this C# code, using no more than 500 characters.",
+          "best_score": 0.9776544793943371
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "将给定的华氏温度转换为摄氏温度，并将结果返回为格式化为两位小数的字符串。\n    使用的公式是：摄氏温度 = 5/9 * (华氏温度 - 32)。\n    示例用法：\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is: Celsius temperature = 5/9 * (Fahrenheit temperature - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 0.9845461590947236,
+              "time_taken": {
+                "translation_time": 1.1126797199249268,
+                "back_translation_time": 1.8613221645355225,
+                "bertscore_times": 0.8449561595916748
+              }
+            }
+          ],
+          "best_translation": "将给定的华氏温度转换为摄氏温度，并将结果返回为格式化为两位小数的字符串。\n    使用的公式是：摄氏温度 = 5/9 * (华氏温度 - 32)。\n    示例用法：\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is: Celsius temperature = 5/9 * (Fahrenheit temperature - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 0.9845461590947236
+        },
+        "best_score": 0.9872848747884326
+      },
+      "Bengali": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* একটি প্রদত্ত ফারেনহাইট তাপমাত্রাকে সেলসিয়াসে রূপান্তর করে এবং ফলাফলকে একটি স্ট্রিং হিসেবে ফেরত দেয় যা দুই দশমিক স্থান পর্যন্ত ফরম্যাট করা থাকে।\n    ব্যবহৃত সূত্র হল: সেলসিয়াস = 5/9 * (ফারেনহাইট - 32)।\n    উদাহরণ ব্যবহার:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 1,
+              "time_taken": {
+                "translation_time": 1.5238564014434814,
+                "back_translation_time": 0.8215458393096924,
+                "bertscore_times": 1.1923863887786865
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* একটি প্রদত্ত ফারেনহাইট তাপমাত্রাকে সেলসিয়াসে রূপান্তর করে এবং ফলাফলকে একটি স্ট্রিং হিসেবে ফেরত দেয় যা দুই দশমিক স্থান পর্যন্ত ফরম্যাট করা থাকে।\n    ব্যবহৃত সূত্র হল: সেলসিয়াস = 5/9 * (ফারেনহাইট - 32)।\n    উদাহরণ ব্যবহার:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 1
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# কোডের একটি সংক্ষিপ্ত প্রাকৃতিক ভাষার বিবরণ (ডকস্ট্রিং) ইংরেজিতে প্রদান করুন, সর্বাধিক 500 অক্ষর ব্যবহার করে।",
+              "back_translated_text": "Provide a concise natural language description (docstring) in English for the C# code, using a maximum of 500 characters.",
+              "score": 0.6233832906919416,
+              "time_taken": {
+                "translation_time": 1.0288615226745605,
+                "back_translation_time": 0.5550670623779297,
+                "bertscore_times": 0.9022097587585449
+              }
+            },
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# কোডের একটি সংক্ষিপ্ত স্বাভাবিক ভাষার বিবরণ (ডকস্ট্রিং) বাংলায় প্রদান করুন, সর্বাধিক ৫০০ অক্ষর ব্যবহার করে।",
+              "back_translated_text": "Provide a brief natural language description (docstring) of the C# code in Bengali, using a maximum of 500 characters.",
+              "score": 0.59736628612323,
+              "time_taken": {
+                "translation_time": 1.280879020690918,
+                "back_translation_time": 1.3722724914550781,
+                "bertscore_times": 0.923656702041626
+              }
+            },
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# কোডের একটি সংক্ষিপ্ত প্রাকৃতিক ভাষার বিবরণ (ডকস্ট্রিং) বাংলায় প্রদান করুন, সর্বাধিক ৫০০ অক্ষর ব্যবহার করে।",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief natural language description (docstring) of the C# code in Bengali, using a maximum of 500 characters.",
+              "score": 0.9735557414816822,
+              "time_taken": {
+                "translation_time": 1.3800349235534668,
+                "back_translation_time": 0.9640929698944092,
+                "bertscore_times": 2.0673274993896484
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# কোডের একটি সংক্ষিপ্ত প্রাকৃতিক ভাষার বিবরণ (ডকস্ট্রিং) বাংলায় প্রদান করুন, সর্বাধিক ৫০০ অক্ষর ব্যবহার করে।",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief natural language description (docstring) of the C# code in Bengali, using a maximum of 500 characters.",
+          "best_score": 0.9735557414816822
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "একটি প্রদত্ত ফারেনহাইট তাপমাত্রা সেলসিয়াসে রূপান্তর করে এবং ফলাফলটি একটি স্ট্রিং হিসাবে ফেরত দেয় যা দুই দশমিক স্থান পর্যন্ত ফরম্যাট করা হয়।\n    ব্যবহৃত সূত্র হল: সেলসিয়াস = 5/9 * (ফারেনহাইট - 32)।\n    উদাহরণ ব্যবহার:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 1,
+              "time_taken": {
+                "translation_time": 3.0843868255615234,
+                "back_translation_time": 0.6659233570098877,
+                "bertscore_times": 1.081350326538086
+              }
+            }
+          ],
+          "best_translation": "একটি প্রদত্ত ফারেনহাইট তাপমাত্রা সেলসিয়াসে রূপান্তর করে এবং ফলাফলটি একটি স্ট্রিং হিসাবে ফেরত দেয় যা দুই দশমিক স্থান পর্যন্ত ফরম্যাট করা হয়।\n    ব্যবহৃত সূত্র হল: সেলসিয়াস = 5/9 * (ফারেনহাইট - 32)।\n    উদাহরণ ব্যবহার:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 1
+        },
+        "best_score": 1
+      },
+      "Farsi": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* دمای فارنهایت داده شده را به سلسیوس تبدیل می‌کند و نتیجه را به صورت رشته‌ای با فرمت دو رقم اعشار برمی‌گرداند.\n    فرمول استفاده شده: سلسیوس = 5/9 * (فارنهایت - 32).\n    مثال استفاده:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    Formula used: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 0.9864307641499827,
+              "time_taken": {
+                "translation_time": 4.251399755477905,
+                "back_translation_time": 0.8663251399993896,
+                "bertscore_times": 2.6946473121643066
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* دمای فارنهایت داده شده را به سلسیوس تبدیل می‌کند و نتیجه را به صورت رشته‌ای با فرمت دو رقم اعشار برمی‌گرداند.\n    فرمول استفاده شده: سلسیوس = 5/9 * (فارنهایت - 32).\n    مثال استفاده:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    Formula used: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 0.9864307641499827
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nیک توضیح مختصر و طبیعی (docstring) از کد C# به زبان انگلیسی ارائه دهید که حداکثر ۵۰۰ کاراکتر باشد.",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief and natural docstring of the C# code in English that is a maximum of 500 characters.",
+              "score": 0.9616122953004355,
+              "time_taken": {
+                "translation_time": 1.13853120803833,
+                "back_translation_time": 0.7821371555328369,
+                "bertscore_times": 0.8414773941040039
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nیک توضیح مختصر و طبیعی (docstring) از کد C# به زبان انگلیسی ارائه دهید که حداکثر ۵۰۰ کاراکتر باشد.",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief and natural docstring of the C# code in English that is a maximum of 500 characters.",
+          "best_score": 0.9616122953004355
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    فرمول استفاده شده: Celsius = 5/9 * (Fahrenheit - 32).\n    مثال استفاده:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    Formula used: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 0.9847028784653602,
+              "time_taken": {
+                "translation_time": 1.3377690315246582,
+                "back_translation_time": 0.8751778602600098,
+                "bertscore_times": 1.0661838054656982
+              }
+            }
+          ],
+          "best_translation": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    فرمول استفاده شده: Celsius = 5/9 * (Fahrenheit - 32).\n    مثال استفاده:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Converts a given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    Formula used: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 0.9847028784653602
+        },
+        "best_score": 0.9864307641499827
+      },
+      "French": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Convertit une température donnée en Fahrenheit en Celsius et renvoie le résultat sous forme de chaîne formatée à deux décimales.\n    La formule utilisée est : Celsius = 5/9 * (Fahrenheit - 32).\n    Exemple d'utilisation :\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts a given temperature in Fahrenheit to Celsius and returns the result as a formatted string with two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 0.9915860170593621,
+              "time_taken": {
+                "translation_time": 1.2229077816009521,
+                "back_translation_time": 0.9976561069488525,
+                "bertscore_times": 0.8809025287628174
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Convertit une température donnée en Fahrenheit en Celsius et renvoie le résultat sous forme de chaîne formatée à deux décimales.\n    La formule utilisée est : Celsius = 5/9 * (Fahrenheit - 32).\n    Exemple d'utilisation :\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts a given temperature in Fahrenheit to Celsius and returns the result as a formatted string with two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 0.9915860170593621
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nFournir une description concise en langage naturel (docstring) du code C# en anglais en utilisant au maximum 500 caractères.",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+              "score": 0.9920478326952683,
+              "time_taken": {
+                "translation_time": 0.9033420085906982,
+                "back_translation_time": 1.1614177227020264,
+                "bertscore_times": 0.854102611541748
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nFournir une description concise en langage naturel (docstring) du code C# en anglais en utilisant au maximum 500 caractères.",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+          "best_score": 0.9920478326952683
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "Convertit une température donnée en Fahrenheit en Celsius et renvoie le résultat sous forme de chaîne formatée à deux décimales.\n    La formule utilisée est : Celsius = 5/9 * (Fahrenheit - 32).\n    Exemple d'utilisation :\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Converts a given temperature in Fahrenheit to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example of usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 0.9886222531439406,
+              "time_taken": {
+                "translation_time": 1.8683531284332275,
+                "back_translation_time": 0.9235961437225342,
+                "bertscore_times": 1.443319320678711
+              }
+            }
+          ],
+          "best_translation": "Convertit une température donnée en Fahrenheit en Celsius et renvoie le résultat sous forme de chaîne formatée à deux décimales.\n    La formule utilisée est : Celsius = 5/9 * (Fahrenheit - 32).\n    Exemple d'utilisation :\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Converts a given temperature in Fahrenheit to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example of usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 0.9886222531439406
+        },
+        "best_score": 0.9920478326952683
+      },
+      "Hindi": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* दिए गए फ़ारेनहाइट तापमान को सेल्सियस में परिवर्तित करता है और परिणाम को दो दशमलव स्थानों तक स्वरूपित स्ट्रिंग के रूप में लौटाता है।\n    उपयोग किया गया सूत्र है: सेल्सियस = 5/9 * (फ़ारेनहाइट - 32)।\n    उदाहरण उपयोग:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a formatted string up to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 0.9917772981162988,
+              "time_taken": {
+                "translation_time": 1.5893423557281494,
+                "back_translation_time": 1.049698829650879,
+                "bertscore_times": 1.6773467063903809
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* दिए गए फ़ारेनहाइट तापमान को सेल्सियस में परिवर्तित करता है और परिणाम को दो दशमलव स्थानों तक स्वरूपित स्ट्रिंग के रूप में लौटाता है।\n    उपयोग किया गया सूत्र है: सेल्सियस = 5/9 * (फ़ारेनहाइट - 32)।\n    उदाहरण उपयोग:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a formatted string up to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 0.9917772981162988
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# कोड का एक संक्षिप्त प्राकृतिक भाषा विवरण (docstring) अधिकतम 500 वर्णों का उपयोग करके अंग्रेजी में प्रदान करें।",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+              "score": 0.986574969806614,
+              "time_taken": {
+                "translation_time": 0.9460892677307129,
+                "back_translation_time": 0.5726516246795654,
+                "bertscore_times": 7.915221452713013
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC# कोड का एक संक्षिप्त प्राकृतिक भाषा विवरण (docstring) अधिकतम 500 वर्णों का उपयोग करके अंग्रेजी में प्रदान करें।",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a brief natural language description (docstring) of the C# code in English using a maximum of 500 characters.",
+          "best_score": 0.986574969806614
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "दिए गए फ़ारेनहाइट तापमान को सेल्सियस में परिवर्तित करता है और परिणाम को दो दशमलव स्थानों तक स्वरूपित स्ट्रिंग के रूप में लौटाता है।\n    उपयोग किया गया सूत्र है: सेल्सियस = 5/9 * (फ़ारेनहाइट - 32)।\n    उदाहरण उपयोग:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Converts the given Fahrenheit temperature to Celsius and returns the result as a formatted string up to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 0.9893500348600524,
+              "time_taken": {
+                "translation_time": 1.3426687717437744,
+                "back_translation_time": 0.7247827053070068,
+                "bertscore_times": 1.0196077823638916
+              }
+            }
+          ],
+          "best_translation": "दिए गए फ़ारेनहाइट तापमान को सेल्सियस में परिवर्तित करता है और परिणाम को दो दशमलव स्थानों तक स्वरूपित स्ट्रिंग के रूप में लौटाता है।\n    उपयोग किया गया सूत्र है: सेल्सियस = 5/9 * (फ़ारेनहाइट - 32)।\n    उदाहरण उपयोग:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Converts the given Fahrenheit temperature to Celsius and returns the result as a formatted string up to two decimal places.\n    The formula used is: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 0.9893500348600524
+        },
+        "best_score": 0.9917772981162988
+      },
+      "Japanese": {
+        "prompt": {
+          "iterations": [
+            {
+              "translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* 与えられた華氏温度を摂氏に変換し、結果を小数点以下2桁にフォーマットされた文字列として返します。\n    使用される公式は次のとおりです: Celsius = 5/9 * (Fahrenheit - 32)。\n    使用例:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "back_translated_text": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is as follows: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+              "score": 0.9890904249520398,
+              "time_taken": {
+                "translation_time": 2.5494112968444824,
+                "back_translation_time": 0.8355731964111328,
+                "bertscore_times": 1.0749030113220215
+              }
+            }
+          ],
+          "best_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* 与えられた華氏温度を摂氏に変換し、結果を小数点以下2桁にフォーマットされた文字列として返します。\n    使用される公式は次のとおりです: Celsius = 5/9 * (Fahrenheit - 32)。\n    使用例:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_back_translation": "using System;\nusing System.Collections.Generic;\nusing System.Diagnostics;\n\nclass Program\n{\n /* Converts the given Fahrenheit temperature to Celsius and returns the result as a string formatted to two decimal places.\n    The formula used is as follows: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"\n*/  \nstatic string ConvertFahrenheitToCelsius(double fahrenheitTemperature)",
+          "best_score": 0.9890904249520398
+        },
+        "instruction": {
+          "iterations": [
+            {
+              "translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC#コードの簡潔な自然言語による説明（docstring）を英語で500文字以内で提供してください。",
+              "back_translated_text": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language explanation (docstring) of the C# code in English within 500 characters.",
+              "score": 0.985510112333886,
+              "time_taken": {
+                "translation_time": 1.0074741840362549,
+                "back_translation_time": 0.7347192764282227,
+                "bertscore_times": 3.2744805812835693
+              }
+            }
+          ],
+          "best_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nC#コードの簡潔な自然言語による説明（docstring）を英語で500文字以内で提供してください。",
+          "best_back_translation": "static string ConvertFahrenheitToCelsius(double fahrenheitTemperature)\n{\n    double celsiusTemperature = 5.0 / 9.0 * (fahrenheitTemperature - 32);\n    return $\"c={celsiusTemperature:F2}\";\n}\n\nProvide a concise natural language explanation (docstring) of the C# code in English within 500 characters.",
+          "best_score": 0.985510112333886
+        },
+        "docstring": {
+          "iterations": [
+            {
+              "translated_text": "与えられた華氏温度を摂氏に変換し、結果を小数点以下2桁にフォーマットされた文字列として返します。\n    使用される式は次の通りです: Celsius = 5/9 * (Fahrenheit - 32)。\n    使用例:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "back_translated_text": "Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is as follows: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+              "score": 0.9861834693255942,
+              "time_taken": {
+                "translation_time": 1.068617820739746,
+                "back_translation_time": 0.7949697971343994,
+                "bertscore_times": 1.6091411113739014
+              }
+            }
+          ],
+          "best_translation": "与えられた華氏温度を摂氏に変換し、結果を小数点以下2桁にフォーマットされた文字列として返します。\n    使用される式は次の通りです: Celsius = 5/9 * (Fahrenheit - 32)。\n    使用例:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_back_translation": "Convert the given Fahrenheit temperature to Celsius and return the result as a string formatted to two decimal places.\n    The formula used is as follows: Celsius = 5/9 * (Fahrenheit - 32).\n    Example usage:\n    >>> ConvertFahrenheitToCelsius(32)\n    \"c=0.00\"\n    >>> ConvertFahrenheitToCelsius(212)\n    \"c=100.00\"",
+          "best_score": 0.9861834693255942
+        },
+        "best_score": 0.9890904249520398
+      }
+    }
+  }
+]
