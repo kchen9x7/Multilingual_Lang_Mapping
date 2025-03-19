@@ -271,9 +271,14 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         best_translation = translated_text
                         best_back_translation = back_translated_text
                     
-                    if score > 0.95:
-                        print(f"        Score above threshold (0.95). Stopping iterations.")
-                        break
+                    if rescaling:
+                        if score > 0.83:
+                            print(f"        Score above rescaled threshold (0.83). Stopping iterations.")
+                            break
+                    else:
+                        if score > 0.95:
+                            print(f"        Score above baseline threshold (0.95). Stopping iterations.")
+                            break
                         
                     # Add a delay to avoid API rate limits
                     sleep_time = random.uniform(1, 2.0)
