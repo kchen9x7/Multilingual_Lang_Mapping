@@ -20,14 +20,14 @@ api_call_count = 0
 estimated_cost = 0.0
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str:
+def translate_with_gpt(text: str, target_language: str) -> str:
+# def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str:
     """
     Translate text using GPT-4o API with retry logic
     
     Args:
         text: Text to translate
         target_language: Target language for translation
-        prompt_type: Type of prompt (prompt, instruction, docstring)
         
     Returns:
         Translated text
@@ -43,8 +43,72 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str
         "Authorization": f"Bearer {api_key}"
     }
     
-    prompt = f"Translate the natural language portion of the following {prompt_type} content related to a computer programming task into {target_language}:\n\n{text}"
+    # prompt = f"Translate the natural language portion of the following {prompt_type} content related to a computer programming task into {target_language}:\n\n{text}"
+    prompt = (f"Translate the text of a computer programming task below into {target_language}, " \
+              f"preserving all code exactly as is. Only translate the natural language portions (comments, docstrings, free-text explanations, etc.). " \
+              f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
+              f"Do not output any special code block or add any formatting, just give the output with the translation in a text format.\n\nText to translate:\n{text}")
+
+
+    data = {
+        "model": "gpt-4o",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.3
+    }
     
+    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+    
+    # Track API calls and estimate cost (rough estimate based on characters)
+    api_call_count += 1
+    # Estimate input tokens (roughly 4 chars per token) and cost at $0.0025/1K tokens
+    input_tokens = len(prompt) / 4
+    estimated_cost += (input_tokens / 1000) * 0.0025
+    
+    if response.status_code != 200:
+        raise Exception(f"API error: {response.status_code} - {response.text}")
+    
+    response_data = response.json()
+    
+    if "choices" in response_data and len(response_data["choices"]) > 0:
+        output_text = response_data["choices"][0]["message"]["content"]
+        # Estimate output tokens and cost at $0.01/1K tokens
+        output_tokens = len(output_text) / 4
+        estimated_cost += (output_tokens / 1000) * 0.01
+        return output_text
+    else:
+        raise Exception(f"Error in GPT-4o API response: {response_data}")
+    
+def translate_with_gpt_with_feedback(text: str, prev_back_translation:str, target_language: str) -> str:
+# def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str:
+    """
+    Translate text using GPT-4o API with retry logic
+    
+    Args:
+        text: Text to translate
+        target_language: Target language for translation
+        
+    Returns:
+        Translated text
+    """
+    global api_call_count, estimated_cost
+    
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("Please set the OPENAI_API_KEY environment variable")
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # prompt = f"Translate the natural language portion of the following {prompt_type} content related to a computer programming task into {target_language}:\n\n{text}"
+    prompt = (f"Translation was performed on below text of a computer programming task into {target_language}, " \
+              f"but certain meanings did not carry over. Refine the translation based on below instructions and the back-translated English text as a feedback. " \
+              f"Preserving all code exactly as is. Only translate the natural language portions (comments, docstrings, free-text explanations, etc.). " \
+              f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
+              f"Do not output any special code block or add any formatting, just give the output with the translation in a text format. " \
+              f"\n\nBack-translation of the last output:\n{prev_back_translation}\n\nText to translate into {target_language}:\n{text}")
+
     data = {
         "model": "gpt-4o",
         "messages": [{"role": "user", "content": prompt}],
@@ -73,6 +137,7 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str
     else:
         raise Exception(f"Error in GPT-4o API response: {response_data}")
 
+
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
 def back_translate_with_gpt(text: str, source_language: str) -> str:
     """
@@ -96,7 +161,11 @@ def back_translate_with_gpt(text: str, source_language: str) -> str:
         "Authorization": f"Bearer {api_key}"
     }
     
-    prompt = f"Translate the following {source_language} text back to English:\n\n{text}"
+    # prompt = f"Translate the following {source_language} text back to English:\n\n{text}"
+    prompt = (f"Translate the following {source_language} text of a computer programming task back to English, " \
+              f"preserving all code exactly as is in the output. " \
+              f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
+              f"Do not output any special code block or change any formatting, just give the output with the English translation in a text format.\n\nText to translate:\n{text}")
     
     data = {
         "model": "gpt-4o",
@@ -124,6 +193,7 @@ def back_translate_with_gpt(text: str, source_language: str) -> str:
     else:
         raise Exception(f"Error in GPT-4o API response: {response_data}")
 
+
 def calculate_bert_score(original_text: str, back_translated_text: str) -> float:
     """
     Calculate BERTScore between original and back-translated text
@@ -136,11 +206,42 @@ def calculate_bert_score(original_text: str, back_translated_text: str) -> float
         BERTScore F1 value
     """
     # Initialize the BERTScore with the specified model
-    scorer = BERTScorer(model_type="princeton-nlp/sup-simcse-roberta-large", lang="en", rescale_with_baseline=False)
+    scorer = BERTScorer(
+        model_type="princeton-nlp/sup-simcse-roberta-large", 
+        lang="en", 
+        rescale_with_baseline=False
+    )
     P, R, F1 = scorer.score([back_translated_text], [original_text])
     return F1.item()  # Return the F1 score as a Python float
 
-def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3) -> Dict[str, Any]:
+def calculate_bert_score_rescaling(original_text: str, back_translated_text: str) -> float:
+    """
+    Calculate BERTScore with manual rescaling from the baseline mean
+
+    Args:
+        original_text: Original English text
+        back_translated_text: Back-translated English text
+        
+    Returns:
+        BERTScore F1 value
+    """
+    # Initialize BERTScore without rescaling
+    scorer = BERTScorer(
+        model_type="princeton-nlp/sup-simcse-roberta-large", 
+        lang="en", 
+        rescale_with_baseline=False
+    )
+    P, R, F1 = scorer.score([back_translated_text], [original_text])
+    raw_f1 = F1.item()
+    
+    # Apply rescaling using the calcuated baseline mean
+    baseline_mean = 0.699921812238172  # From the baseline file
+    rescaled_f1 = (raw_f1 - baseline_mean) / (1 - baseline_mean)
+    rescaled_f1 = max(0, min(1, rescaled_f1))
+    
+    return rescaled_f1
+
+def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False) -> Dict[str, Any]:
     """
     Process a single dataset item with translation and back-translation
     
@@ -148,6 +249,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
         item: Dataset item
         target_languages: List of target languages for translation
         max_iterations: Maximum number of iterations for translation
+        rescaling: Enable rescaling with normalized BERTScore
         
     Returns:
         Processed item with translations
@@ -159,8 +261,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
         "original": {
             "prompt": item["prompt"],
             "instruction": item["instruction"],
-            "docstring": item["docstring"],
-            # "code": item["code"]
+            "docstring": item["docstring"]
         },
         "translations": {}
     }
@@ -183,27 +284,41 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
             best_score = 0
             best_translation = ""
             best_back_translation = ""
+            prev_back_translation = ""
             
             for iteration in range(max_iterations):                              
                 try:
                     print(f"      Iteration {iteration+1}/{max_iterations}")
                     
-                    # Translate to target language
-                    print(f"        Translating to {lang}...")
-                    start_time = time.time()
-                    translated_text = translate_with_gpt(item[field], lang, field)
-                    translation_time = time.time() - start_time
+                    if iteration == 0:
+                        # Translate to target language
+                        print(f"        Translating to {lang}...")
+                        start_time = time.time()
+                        # translated_text = translate_with_gpt(item[field], lang, field)
+                        translated_text = translate_with_gpt(item[field], lang)
+                        translation_time = time.time() - start_time
+                    else:
+                        # Translate to target language with feedbacks
+                        print(f"        Translating to {lang} with feedback...")
+                        start_time = time.time()
+                        # translated_text = translate_with_gpt(item[field], lang, field)
+                        translated_text = translate_with_gpt_with_feedback(item[field], prev_back_translation, lang)
+                        translation_time = time.time() - start_time
                     
-                    # Back-translate to English
+                    # Back-translate to English with feedback
                     print(f"        Back-translating to English...")
                     start_time = time.time()
                     back_translated_text = back_translate_with_gpt(translated_text, lang)
+                    prev_back_translation = back_translated_text
                     back_translation_time = time.time() - start_time
                     
                     # Calculate BERTScore
                     print(f"        Calculating BERTScore...")
                     start_time = time.time()
-                    score = calculate_bert_score(item[field], back_translated_text)
+                    if rescaling:
+                        score = calculate_bert_score_rescaling(item[field], back_translated_text)
+                    else:
+                        score = calculate_bert_score(item[field], back_translated_text)
                     bertscore_time = time.time() - start_time
                     
                     print(f"        Score: {score:.4f}")
@@ -212,10 +327,10 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         "translated_text": translated_text,
                         "back_translated_text": back_translated_text,
                         "score": score,
-                        "times": {
-                            "translation": translation_time,
-                            "back_translation": back_translation_time,
-                            "bertscore": bertscore_time
+                        "time_taken": {
+                            "translation_time": translation_time,
+                            "back_translation_time": back_translation_time,
+                            "bertscore_times": bertscore_time
                         }
                     }
                     
@@ -231,7 +346,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         break
                         
                     # Add a delay to avoid API rate limits
-                    sleep_time = random.uniform(1.5, 3.0)
+                    sleep_time = random.uniform(1, 2.0)
                     print(f"        Sleeping for {sleep_time:.2f}s to avoid rate limits...")
                     time.sleep(sleep_time)
                     
@@ -322,26 +437,28 @@ def load_existing_data(dataset_name: str, start_idx: int) -> List[Dict[str, Any]
 
 def process_dataset(
     dataset: Any, 
+    subset_name: str,
     start_idx: int, 
     end_idx: int, 
     target_languages: List[str], 
     max_iterations: int = 3, 
     save_interval: int = 1, 
-    resume: bool = False, 
-    # max_cost: float = float('inf')
+    resume: bool = False,
+    rescaling: bool = False
 ) -> List[Dict[str, Any]]:
     """
     Process a subset of the dataset with translation and back-translation
     
     Args:
-        dataset: HuggingFace dataset
+        dataset: HuggingFace dataset to be processed
+        subset_name: The name of the split/subset of the dataset processed
         start_idx: Start index for processing
         end_idx: End index for processing
         target_languages: List of target languages for translation
         max_iterations: Maximum number of iterations for translation
         save_interval: Interval for saving intermediate results
         resume: Whether to resume from previous processing
-        max_cost: Maximum cost before stopping
+        rescaling: Enable rescaling with normalized BERTScore
         
     Returns:
         Processed data with translations
@@ -349,7 +466,7 @@ def process_dataset(
     global api_call_count, estimated_cost
     
     # Determine dataset name for file naming
-    dataset_name = "generation" if "generation" in dataset else "explanation"
+    dataset_name = subset_name
     
     if resume:
         # Find the last processed index
@@ -378,12 +495,12 @@ def process_dataset(
         print(f"API calls so far: {api_call_count}, Estimated cost: ${estimated_cost:.2f}")
             
         item = dataset['test'][idx]
-        item_result = process_item(item, target_languages, max_iterations)
+        item_result = process_item(item, target_languages, max_iterations, rescaling)
         processed_data.append(item_result)
         
         # Save intermediate results at specified intervals
         if (idx - current_start_idx + 1) % save_interval == 0 or idx == end_idx:
-            output_file = f"{dataset_name}_translation_results_{start_idx}_to_{idx}.json"
+            output_file = f"{dataset_name}_intermediate_translations_{start_idx}_to_{idx}.json"
             print(f"Saving intermediate results to {output_file}...")
             with open(output_file, "w", encoding='utf-8') as f:
                 json.dump(processed_data, f, ensure_ascii=False, indent=2)
@@ -408,8 +525,10 @@ def main():
                         help='Maximum number of iterations for translation')
     parser.add_argument('--save_interval', type=int, default=1, 
                         help='Interval for saving intermediate results')
-    parser.add_argument('--resume', action='store_true',
+    parser.add_argument('--resume', type=bool, default=False,
                         help='Resume from previous processing')
+    parser.add_argument('--rescaling', type=bool, default=False,
+                        help='Enable rescaling with normalized BERTScore')
     
     args = parser.parse_args()
     
@@ -429,16 +548,20 @@ def main():
     print(f"Processing {args.dataset} dataset from index {args.start_idx} to {args.end_idx}...")
     print(f"Target languages: {args.languages}")
     print(f"Maximum iterations: {args.max_iterations}")
+
+    subset_name = args.dataset
     
     try:
         results = process_dataset(
-            ds, 
+            ds,
+            subset_name,
             args.start_idx, 
             args.end_idx, 
             args.languages, 
             args.max_iterations,
             args.save_interval,
             args.resume,
+            args.rescaling
         )
         
         # Save final results
