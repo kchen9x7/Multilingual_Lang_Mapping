@@ -288,10 +288,10 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     print(f"        Back-translating to English...")
                     start_time = time.time()
                     # back_translated_text = back_translate_with_gpt(translated_text, lang)
-                    if dataset_name == "explanation" and field == "instruction":
-                        back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
-                    else: 
-                        back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
+                    # if dataset_name == "explanation" and field == "instruction":
+                    #     back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
+                    # else: 
+                    back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
                     back_translation_time = time.time() - start_time
                     
                     # Calculate BERTScore
