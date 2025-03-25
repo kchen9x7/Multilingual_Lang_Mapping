@@ -20,14 +20,17 @@ api_call_count = 0
 estimated_cost = 0.0
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-def translate_with_gpt(text: str, target_language: str) -> str:
+# def translate_with_gpt(text: str, target_language: str) -> str:
 # def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str:
+def translate_with_gpt(text: str, target_language: str, prompt_type: str, dataset_name: str) -> str:
     """
     Translate text using GPT-4o API with retry logic
     
     Args:
         text: Text to translate
         target_language: Target language for translation
+        prompt_type: the content type in the part of the dataset for translation
+        dataset_name: The target dataset for translation
         
     Returns:
         Translated text
@@ -49,6 +52,9 @@ def translate_with_gpt(text: str, target_language: str) -> str:
               f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
               f"Do not output any special code block or add any formatting, just give the output with the translation in a text format.\n\nText to translate:\n{text}")
 
+    if dataset_name == "explanation" and prompt_type == "instruction":
+        # extracted_text = extract_instruction(text)
+        prompt = f"Translate the only natural language of the following instruction content into {target_language}:\n\n{text}"
 
     data = {
         "model": "gpt-4o",
@@ -79,13 +85,15 @@ def translate_with_gpt(text: str, target_language: str) -> str:
         raise Exception(f"Error in GPT-4o API response: {response_data}")
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-def back_translate_with_gpt(text: str, source_language: str) -> str:
+def back_translate_with_gpt(text: str, source_language: str, prompt_type: str, dataset_name: str) -> str:
     """
     Back-translate text from source language to English using GPT-4o API
     
     Args:
         text: Text to back-translate
         source_language: Source language of the text
+        prompt_type: the content type in the part of the dataset for translation
+        dataset_name: The target dataset for translation
         
     Returns:
         Back-translated text in English
@@ -106,7 +114,12 @@ def back_translate_with_gpt(text: str, source_language: str) -> str:
               f"preserving all code exactly as is in the output. " \
               f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
               f"Do not output any special code block or change any formatting, just give the output with the English translation in a text format.\n\nText to translate:\n{text}")
-    
+        
+    if dataset_name == "explanation" and prompt_type == "instruction":
+        # extracted_text = extract_instruction(text)
+        prompt = f"Translate the only natural language of the following instruction content from {source_language} back to English:\n\n{text}"
+
+
     data = {
         "model": "gpt-4o",
         "messages": [{"role": "user", "content": prompt}],
@@ -180,7 +193,31 @@ def calculate_bert_score_rescaling(original_text: str, back_translated_text: str
     
     return rescaled_f1
 
-def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False) -> Dict[str, Any]:
+def extract_instruction(text):
+    # Pattern to match the instruction line with any programming language
+    default_output = r"Provide a concise natural language description \(docstring\) of the programming code in English using at most 500 characters\."
+    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
+    
+    # Search for the pattern in the text
+    match = re.search(pattern, text)
+    
+    if match:
+        # Return the full matched instruction
+        return match.group(0)
+    else:
+        return default_output
+
+def replace_instruction(original_text, translated_instruction):
+    # Pattern to match the instruction line with any programming language
+    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
+ 
+    # Replace the matched pattern with the translated instruction
+    modified_text = re.sub(pattern, translated_instruction, original_text)
+    
+    return modified_text
+
+# def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False) -> Dict[str, Any]:
+def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False, dataset_name: str = "generation") -> Dict[str, Any]:
     """
     Process a single dataset item with translation and back-translation
     
@@ -189,6 +226,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
         target_languages: List of target languages for translation
         max_iterations: Maximum number of iterations for translation
         rescaling: Enable rescaling with normalized BERTScore
+        dataset_name: The name of the split/subset of the dataset processed
         
     Returns:
         Processed item with translations
@@ -231,27 +269,62 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     # Translate to target language
                     print(f"        Translating to {lang}...")
                     start_time = time.time()
-                    # translated_text = translate_with_gpt(item[field], lang, field)
-                    translated_text = translate_with_gpt(item[field], lang)
+                    
+                    extracted_text = ""
+                    if dataset_name == "explanation" and field == "instruction":
+                        extracted_text = extract_instruction(item[field])
+                        match = re.search("English", extracted_text)
+
+                        if match:
+                            extracted_text = re.sub("English", "Chinese", extracted_text)
+
+                        translated_text = translate_with_gpt(extracted_text, lang, field, dataset_name)
+                    else: 
+                        translated_text = translate_with_gpt(item[field], lang, field, dataset_name)
+                    # translated_text = translate_with_gpt(item[field], lang)
                     translation_time = time.time() - start_time
                     
                     # Back-translate to English
                     print(f"        Back-translating to English...")
                     start_time = time.time()
-                    back_translated_text = back_translate_with_gpt(translated_text, lang)
+                    # back_translated_text = back_translate_with_gpt(translated_text, lang)
+                    if dataset_name == "explanation" and field == "instruction":
+                        back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
+                    else: 
+                        back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
                     back_translation_time = time.time() - start_time
                     
                     # Calculate BERTScore
                     start_time = time.time()
-                    if rescaling:
-                        print(f"        Calculating BERTScore with rescaling on...")
-                        score = calculate_bert_score_rescaling(item[field], back_translated_text)
-                    else:
-                        print(f"        Calculating BERTScore...")
-                        score = calculate_bert_score(item[field], back_translated_text)
+                    # if rescaling:
+                    #     print(f"        Calculating BERTScore with rescaling on...")
+                    #     score = calculate_bert_score_rescaling(item[field], back_translated_text)
+                    # else:
+                    #     print(f"        Calculating BERTScore...")
+                    #     score = calculate_bert_score(item[field], back_translated_text)
+
+                    if dataset_name == "explanation" and field == "instruction":
+                        if rescaling:
+                            print(f"        Calculating BERTScore with rescaling on...")
+                            score = calculate_bert_score_rescaling(extracted_text, back_translated_text)
+                        else:
+                            print(f"        Calculating BERTScore...")
+                            score = calculate_bert_score(extracted_text, back_translated_text)
+                    else: 
+                        if rescaling:
+                            print(f"        Calculating BERTScore with rescaling on...")
+                            score = calculate_bert_score_rescaling(item[field], back_translated_text)
+                        else:
+                            print(f"        Calculating BERTScore...")
+                            score = calculate_bert_score(item[field], back_translated_text)
+
                     bertscore_time = time.time() - start_time
                     
                     print(f"        Score: {score:.4f}")
+
+                    if dataset_name == "explanation" and field == "instruction":
+                        translated_text = replace_instruction(item[field], translated_text)
+                        back_translated_text = replace_instruction(item[field], back_translated_text)
                     
                     iteration_result = {
                         "translated_text": translated_text,
@@ -430,7 +503,7 @@ def process_dataset(
         print(f"API calls so far: {api_call_count}, Estimated cost: ${estimated_cost:.2f}")
             
         item = dataset['test'][idx]
-        item_result = process_item(item, target_languages, max_iterations, rescaling)
+        item_result = process_item(item, target_languages, max_iterations, rescaling, dataset_name)
         processed_data.append(item_result)
         
         # Save intermediate results at specified intervals
