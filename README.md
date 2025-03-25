@@ -9,7 +9,7 @@ Multilingual Natural Languages and Programming Languages Mapping
 ### Then, install the libraries from requirements.txt:
 `pip install requirements.txt`
 
-Don't forget to add your API key in an environmental variable source file and name it `.venv`
+Don't forget to add your API key in an environmental variable source file and name it `.env`
 
 ### Args taken for `mceval_translator_base.py`
 - dataset: HuggingFace dataset to be processed
