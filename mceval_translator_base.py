@@ -276,7 +276,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         match = re.search("English", extracted_text)
 
                         if match:
-                            extracted_text = re.sub("English", "Chinese", extracted_text)
+                            extracted_text = re.sub("English", lang, extracted_text)
 
                         translated_text = translate_with_gpt(extracted_text, lang, field, dataset_name)
                     else: 
