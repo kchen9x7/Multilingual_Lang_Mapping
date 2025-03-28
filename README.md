@@ -1,6 +1,15 @@
 # Multilingual_Lang_Mapping
 Multilingual Natural Languages and Programming Languages Mapping
 
+## Update!
+Final dataset construction code **mceval_translator_base.py** is uploaded. Running command is similar to previous
+
+### An example of the script running command without rescaling:
+`python mceval_translator.py --dataset generation --start_idx 0 --end_idx 5 --languages Spanish French German --max_iterations 3`
+
+### An example of the script running command with rescaling on:
+`python mceval_translator_base.py --dataset generation --start_idx 0 --end_idx 5 --languages Spanish French German --max_iterations 3 --rescaling`
+
 ## Instructions for running the code:
 `python -m venv ./venv`
 
