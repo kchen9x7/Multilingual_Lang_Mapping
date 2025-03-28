@@ -209,11 +209,9 @@ def extract_instruction(text):
 
 def replace_instruction(original_text, translated_instruction):
     # Pattern to match the instruction line with any programming language
-    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
- 
+    pattern = r"Provide a concise natural language description \(docstring\) of the ([A-Za-z0-9#+]{1,15}) code in English using at most 500 characters\."
     # Replace the matched pattern with the translated instruction
     modified_text = re.sub(pattern, translated_instruction, original_text)
-    
     return modified_text
 
 def get_language_code(language_name: str) -> str:
@@ -361,7 +359,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
 
                     if dataset_name == "explanation" and field == "instruction":
                         translated_text = replace_instruction(item[field], translated_text)
-                        back_translated_text = replace_instruction(item[field], back_translated_text)
+                        # back_translated_text = replace_instruction(item[field], back_translated_text)
                     
                     # iteration_result = {
                     #     "translated_text": translated_text,
@@ -379,7 +377,6 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     if score > best_score:
                         best_score = score
                         best_translation = translated_text
-                        # best_back_translation = back_translated_text
                         item_result[f"{field}_bertscore"][lang_code] = str(score)
                         item_result[field][lang_code] = best_translation
                     
@@ -391,7 +388,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         if score > 0.95:
                             print(f"        Score above baseline threshold (0.95). Stopping iterations.")
                             break
-                        
+                    
                     # Add a delay to avoid API rate limits
                     sleep_time = random.uniform(1, 2.0)
                     print(f"        Sleeping for {sleep_time:.2f}s to avoid rate limits...")
