@@ -196,7 +196,7 @@ def calculate_bert_score_rescaling(original_text: str, back_translated_text: str
 def extract_instruction(text):
     # Pattern to match the instruction line with any programming language
     default_output = r"Provide a concise natural language description \(docstring\) of the programming code in English using at most 500 characters\."
-    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
+    pattern = r"Provide a concise natural language description \(docstring\) of the ([A-Za-z0-9#+]{1,15}) code in English using at most 500 characters\."
     
     # Search for the pattern in the text
     match = re.search(pattern, text)
