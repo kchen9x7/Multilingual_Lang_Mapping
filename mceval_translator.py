@@ -22,7 +22,7 @@ estimated_cost = 0.0
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
 # def translate_with_gpt(text: str, target_language: str) -> str:
 # def translate_with_gpt(text: str, target_language: str, prompt_type: str) -> str:
-def translate_with_gpt(text: str, target_language: str, prompt_type: str, dataset_name: str) -> str:
+def translate_with_gpt(text: str, target_language: str, prompt_type: str, dataset_name: str, PL_name: str) -> str:
     """
     Translate text using GPT API with retry logic
     
@@ -47,10 +47,36 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str, datase
     }
     
     # prompt = f"Translate the natural language portion of the following {prompt_type} content related to a computer programming task into {target_language}:\n\n{text}"
-    prompt = (f"Translate the text of a computer programming task below into {target_language}, " \
-              f"preserving all code exactly as is. Only translate the natural language portions (comments, docstrings, free-text explanations, etc.). " \
-              f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
-              f"Do not output any special code block or add any formatting, just give the output with the translation in a text format.\n\nText to translate:\n{text}")
+    # prompt = (f"Translate the text of a computer programming task below into {target_language}, " \
+    #           f"preserving all code exactly as is. Only translate the natural language portions (comments, docstrings, free-text explanations, etc.). " \
+    #           f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
+    #           f"Do not output any special code block or add any formatting, just give the output with the translation in a text format.\n\nText to translate:\n{text}")
+
+    prompt = (
+        f"You are an expert code documentation translator. "
+        f"Your task is to translate *ONLY* the natural language parts (comments, docstrings, explanations, descriptive text) "
+        f"within the provided programming task descriptions or code snippets into {target_language}. "
+        f"\n\n**You must follow these strict rules:** "
+        f"\n1.  Translate all human-readable text intended for explanation, like comments (e.g., `#`, `//`, `/* */`, etc.), docstrings, and any descriptive free-text surrounding code. "
+        f"\n2.  Translate all human-readable text intended for instructions "
+        f"(e.g. instruction: `Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem`, then `Write a python function` and `to solve the following problem` has to be translated into the target language) "
+        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords like `def`, `class`, `public`, `int`, operators, syntax). "
+        f"\n4.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and formatting in the output. "
+        f"\n5.  **PRESERVE** examples within docstrings/comments (e.g., `>>> example_code()` or code snippets shown for illustration) without translation. "
+        f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
+        f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
+        f"\n8.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+        f"\n\n**Demonstration Examples:**\n*Input:*\n"
+    )
+
+    # instructions (e.g. Write a programming_language function function_name)
+
+    get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
+    example_source = get_examples["source"]
+    example_translation = get_examples["translation"]
+    prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
+
+    prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output:*\n" + example_translation + prompt_ending
 
     if dataset_name == "explanation" and prompt_type == "instruction":
         # extracted_text = extract_instruction(text)
@@ -85,7 +111,7 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str, datase
         raise Exception(f"Error in GPT API response: {response_data}")
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-def back_translate_with_gpt(text: str, source_language: str, prompt_type: str, dataset_name: str) -> str:
+def back_translate_with_gpt(text: str, source_language: str, prompt_type: str, dataset_name: str,  PL_name: str) -> str:
     """
     Back-translate text from source language to English using GPT API
     
@@ -110,15 +136,38 @@ def back_translate_with_gpt(text: str, source_language: str, prompt_type: str, d
     }
     
     # prompt = f"Translate the following {source_language} text back to English:\n\n{text}"
-    prompt = (f"Translate the following {source_language} text of a computer programming task back to English, " \
-              f"preserving all code exactly as is in the output. " \
-              f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
-              f"Do not output any special code block or change any formatting, just give the output with the English translation in a text format.\n\nText to translate:\n{text}")
-        
+    # prompt = (f"Translate the following {source_language} text of a computer programming task back to English, " \
+    #           f"preserving all code exactly as is in the output. " \
+    #           f"Do not remove or alter the code. Keep the same structure, formatting, and indentation. " \
+    #           f"Do not output any special code block or change any formatting, just give the output with the English translation in a text format.\n\nText to translate:\n{text}")
+
+    prompt = (
+        f"You are an expert code documentation translator. "
+        f"Your task is to translate *ONLY* the natural language parts (comments, docstrings, explanations, descriptive text) "
+        f"within the provided programming task descriptions or code snippets from {source_language} back to English. "
+        f"\n\n**You must follow these strict rules:** "
+        f"\n1.  Translate all human-readable text intended for explanation, like comments (e.g., `#`, `//`, `/* */`, etc.), docstrings, and any descriptive free-text surrounding code. "
+        f"\n2.  Translate all human-readable text intended for instructions "
+        f"(e.g. instruction: `Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem`, then `Write a python function` and `to solve the following problem` has to be translated into the target language) "
+        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords like `def`, `class`, `public`, `int`, operators, syntax). "
+        f"\n4.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and formatting in the output. "
+        f"\n5.  **PRESERVE** examples within docstrings/comments (e.g., `>>> example_code()` or code snippets shown for illustration) without translation. "
+        f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
+        f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
+        f"\n8.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+        f"\n\n**Demonstration Examples:**\n*Input:*\n"
+    )
+
+    get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
+    example_translated = get_examples["translation"]
+    example_english = get_examples["source"]
+    prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
+
+    prompt = prompt + example_translated + "\n**Demonstration Examples:**\n*Output:*\n" + example_english + prompt_ending
+
     if dataset_name == "explanation" and prompt_type == "instruction":
         # extracted_text = extract_instruction(text)
         prompt = f"Translate the only natural language of the following instruction content from {source_language} back to English:\n\n{text}"
-
 
     data = {
         "model": "gpt-4o",
@@ -210,8 +259,10 @@ def extract_instruction(text):
 def replace_instruction(original_text, translated_instruction):
     # Pattern to match the instruction line with any programming language
     pattern = r"Provide a concise natural language description \(docstring\) of the ([A-Za-z0-9#+]{1,15}) code in English using at most 500 characters\."
+
     # Replace the matched pattern with the translated instruction
     modified_text = re.sub(pattern, translated_instruction, original_text)
+
     return modified_text
 
 def get_language_code(language_name: str) -> str:
@@ -219,6 +270,26 @@ def get_language_code(language_name: str) -> str:
     with open("languages_tested_ISO639_codes.json", "r") as f:
         lang_codes = json.load(f)
     return lang_codes.get(language_name, "")
+
+def get_translation_examples(programming_lang: str, dataset_name: str, prompt_type: str) -> str:
+    # Get source and translation examples based on PL name and prompt type
+    with open("prompt_examples.json", "r", encoding='utf-8') as f:
+        file = json.load(f)
+        return_example = file[programming_lang][dataset_name][prompt_type]
+    return return_example
+
+def normalize_text(text: str) -> str:
+    """
+    Normalize text by removing extra whitespace, indentation, and line breaks
+    while keeping essential content intact.
+    """
+    # Remove leading/trailing whitespace on each line
+    lines = [line.strip() for line in text.strip().splitlines()]
+    # Collapse lines into a single space-separated string
+    normalized = ' '.join(line for line in lines if line)
+    # Remove multiple spaces
+    normalized = re.sub(r'\s+', ' ', normalized)
+    return normalized
 
 # def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False) -> Dict[str, Any]:
 def process_item(item: Dict[str, Any], target_languages: List[str], max_iterations: int = 3, rescaling: bool = False, dataset_name: str = "generation") -> Dict[str, Any]:
@@ -246,6 +317,8 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
     #     },
     #     "translations": {}
     # }
+
+    curr_PL_name = item["task_id"].split('/')[0]
 
     item_result = {
         "task_id": item["task_id"],
@@ -313,9 +386,10 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                         if match:
                             extracted_text = re.sub("English", lang, extracted_text)
 
-                        translated_text = translate_with_gpt(extracted_text, lang, field, dataset_name)
+                        translated_text = translate_with_gpt(extracted_text, lang, field, dataset_name, curr_PL_name)
+
                     else: 
-                        translated_text = translate_with_gpt(item[field], lang, field, dataset_name)
+                        translated_text = translate_with_gpt(item[field], lang, field, dataset_name, curr_PL_name)
                     # translated_text = translate_with_gpt(item[field], lang)
                     translation_time = time.time() - start_time
                     
@@ -326,7 +400,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     # if dataset_name == "explanation" and field == "instruction":
                     #     back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
                     # else: 
-                    back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name)
+                    back_translated_text = back_translate_with_gpt(translated_text, lang, field, dataset_name, curr_PL_name)
                     back_translation_time = time.time() - start_time
                     
                     # Calculate BERTScore
@@ -341,17 +415,33 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     if dataset_name == "explanation" and field == "instruction":
                         if rescaling:
                             print(f"        Calculating BERTScore with rescaling on...")
-                            score = calculate_bert_score_rescaling(extracted_text, back_translated_text)
+                            # score = calculate_bert_score_rescaling(extracted_text, back_translated_text)
+                            score = calculate_bert_score_rescaling(
+                                normalize_text(extracted_text),
+                                normalize_text(back_translated_text)
+                            )
                         else:
                             print(f"        Calculating BERTScore...")
-                            score = calculate_bert_score(extracted_text, back_translated_text)
+                            # score = calculate_bert_score(extracted_text, back_translated_text)
+                            score = calculate_bert_score_rescaling(
+                                normalize_text(extracted_text),
+                                normalize_text(back_translated_text)
+                            )
                     else: 
                         if rescaling:
                             print(f"        Calculating BERTScore with rescaling on...")
-                            score = calculate_bert_score_rescaling(item[field], back_translated_text)
+                            # score = calculate_bert_score_rescaling(item[field], back_translated_text)
+                            score = calculate_bert_score_rescaling(
+                                normalize_text(item[field]),
+                                normalize_text(back_translated_text)
+                            )
                         else:
                             print(f"        Calculating BERTScore...")
-                            score = calculate_bert_score(item[field], back_translated_text)
+                            # score = calculate_bert_score(item[field], back_translated_text)
+                            score = calculate_bert_score_rescaling(
+                                normalize_text(item[field]),
+                                normalize_text(back_translated_text)
+                            )
 
                     bertscore_time = time.time() - start_time
                     
@@ -359,7 +449,7 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
 
                     if dataset_name == "explanation" and field == "instruction":
                         translated_text = replace_instruction(item[field], translated_text)
-                        # back_translated_text = replace_instruction(item[field], back_translated_text)
+                        back_translated_text = replace_instruction(item[field], back_translated_text)
                     
                     # iteration_result = {
                     #     "translated_text": translated_text,
