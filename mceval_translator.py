@@ -81,6 +81,10 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str, datase
     if dataset_name == "explanation" and prompt_type == "instruction":
         # extracted_text = extract_instruction(text)
         prompt = f"Translate the only natural language of the following instruction content into {target_language}:\n\n{text}"
+    elif dataset_name == "generation" and prompt_type == "instruction":
+        example_translation_2 = get_examples["translation_2"]
+        prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output Example 1:*\n" + example_translation + \
+                 "\n*Output Example 2:*\n" + example_translation_2 + prompt_ending
 
     data = {
         "model": "gpt-4o",
