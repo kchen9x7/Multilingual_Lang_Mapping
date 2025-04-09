@@ -60,31 +60,62 @@ def translate_with_gpt(text: str, target_language: str, prompt_type: str, datase
         f"\n1.  Translate all human-readable text intended for explanation, like comments (e.g., `#`, `//`, `/* */`, etc.), docstrings, and any descriptive free-text surrounding code. "
         f"\n2.  Translate all human-readable text intended for instructions "
         f"(e.g. instruction: `Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem`, then `Write a python function` and `to solve the following problem` has to be translated into the target language) "
-        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords like `def`, `class`, `public`, `int`, operators, syntax). "
+        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords, operators, syntax). "
         f"\n4.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and formatting in the output. "
         f"\n5.  **PRESERVE** examples within docstrings/comments (e.g., `>>> example_code()` or code snippets shown for illustration) without translation. "
-        f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
-        f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
-        f"\n8.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
-        f"\n\n**Demonstration Examples:**\n*Input:*\n"
+        # f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
+        # f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
+        f"\n6.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+        # f"\n\n**Demonstration Examples:**\n*Input:*\n"
+        f"\n\nTranslate below text using the provided instructions:\n{text}"
     )
 
     # instructions (e.g. Write a programming_language function function_name)
 
-    get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
-    example_source = get_examples["source"]
-    example_translation = get_examples["translation"]
-    prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
+    # get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
+    # example_source = get_examples["source"]
+    # example_translation = get_examples["translation"]
+    # prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
 
-    prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output:*\n" + example_translation + prompt_ending
+    # prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output:*\n" + example_translation + prompt_ending
 
     if dataset_name == "explanation" and prompt_type == "instruction":
         # extracted_text = extract_instruction(text)
         prompt = f"Translate the only natural language of the following instruction content into {target_language}:\n\n{text}"
-    elif dataset_name == "generation" and prompt_type == "instruction":
-        example_translation_2 = get_examples["translation_2"]
-        prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output Example 1:*\n" + example_translation + \
-                 "\n*Output Example 2:*\n" + example_translation_2 + prompt_ending
+    # elif dataset_name == "explanation" and prompt_type == "docstring":
+    elif prompt_type == "docstring":
+        prompt = (
+            f"You are an expert code documentation translator. "
+            f"Your task is to translate *ONLY* the natural language human-readable text intended for code explanation (comments, explanations, descriptive text) "
+            f"within the provided programming task docstring into {target_language}. "
+            f"\n\n**You must follow these strict rules:** "            
+            f"\n1.  Handle specific sections like `Args:`, `Returns:`, `Examples:` by translating the section title and the descriptive text, while preserving the formatting and any associated code/type information. "
+            # f"\n2.  **DO NOT** translate any actual code elements (function names, class/variable names, keywords, operators, and syntax). "
+            f"\n2.  **DO NOT** translate any actual code elements (e.g. function names, class/variable names, keywords, operators, syntax, lines starting with `>>>`) in the code snippets. "
+            f"\n3.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and overall formatting of the code snippets in the output. "
+            # f"\n4.  **PRESERVE** examples within the text (e.g., lines starting with `>>>` or code snippets shown for illustration without translation. Keep them exactly as they appear in the input. "
+            f"\n4.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+            f"\n5.  Output the text with the translated natural language text and code snippets based on above rules. "
+            f"\n\n**Translation task**\nTranslate below text using the provided instructions:\n{text}"
+            # f"\n\n**Demonstration Example 1:**\n*Input:*\n"
+        )
+
+        # get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
+        # print("get_examples is :\n", get_examples)
+        # ex_source_1 = get_examples["source"]
+        # ex_translation_1 = get_examples["translation"]
+        # ex_source_2 = get_examples["source_2"]
+        # ex_translation_2 = get_examples["translation_2"]
+        # prompt_ending = f"\n\n**End of Examples**\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
+
+        # prompt = prompt + ex_source_1 + "\n*Output:*\n" + ex_translation_1 + \
+        #          "\n\n**Demonstration Example 2:**\n*Input:*\n" + ex_source_2 + \
+        #          "\n*Output:*\n" + ex_translation_2 + prompt_ending
+    
+    # elif dataset_name == "generation" and prompt_type == "instruction":
+    #     example_translation_2 = get_examples["translation_2"]
+    #     prompt = prompt + example_source + "\n**Demonstration Examples:**\n*Output Example 1:*\n" + example_translation + \
+    #              "\n*Output Example 2:*\n" + example_translation_2 + prompt_ending
 
     data = {
         "model": "gpt-4o",
@@ -153,26 +184,44 @@ def back_translate_with_gpt(text: str, source_language: str, prompt_type: str, d
         f"\n1.  Translate all human-readable text intended for explanation, like comments (e.g., `#`, `//`, `/* */`, etc.), docstrings, and any descriptive free-text surrounding code. "
         f"\n2.  Translate all human-readable text intended for instructions "
         f"(e.g. instruction: `Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem`, then `Write a python function` and `to solve the following problem` has to be translated into the target language) "
-        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords like `def`, `class`, `public`, `int`, operators, syntax). "
+        f"\n3.  **DO NOT** translate any code elements (function/class/variable names, keywords, operators, syntax). "
         f"\n4.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and formatting in the output. "
         f"\n5.  **PRESERVE** examples within docstrings/comments (e.g., `>>> example_code()` or code snippets shown for illustration) without translation. "
-        f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
-        f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
-        f"\n8.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
-        f"\n\n**Demonstration Examples:**\n*Input:*\n"
+        # f"\n6.  **PRESERVE** the exact indentation (spaces or tabs) and line breaks formatting wrapped around the original input in the output. "
+        # f"\n7.  Output the programming task descriptions or code snippets with the translated natural language text in a text format."
+        f"\n6.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+        # f"\n\n**Demonstration Examples:**\n*Input:*\n"
+        f"\n\n**Translation task**\nTranslate below text using the provided instructions:\n{text}"
     )
 
-    get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
-    example_translated = get_examples["translation"]
-    example_english = get_examples["source"]
-    prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
+    # get_examples = get_translation_examples(PL_name, dataset_name, prompt_type)
+    # example_translated = get_examples["translation"]
+    # example_english = get_examples["source"]
+    # prompt_ending = f"\n\n**Translation task**\nTranslate below text using the provided instructions and exmaple:\n{text}"
 
-    prompt = prompt + example_translated + "\n**Demonstration Examples:**\n*Output:*\n" + example_english + prompt_ending
+    # prompt = prompt + example_translated + "\n**Demonstration Examples:**\n*Output:*\n" + example_english + prompt_ending
 
     if dataset_name == "explanation" and prompt_type == "instruction":
         # extracted_text = extract_instruction(text)
         prompt = f"Translate the only natural language of the following instruction content from {source_language} back to English:\n\n{text}"
-
+    # elif dataset_name == "explanation" and prompt_type == "docstring":
+    elif prompt_type == "docstring":
+        prompt = (
+            f"You are an expert code documentation translator. "
+            f"Your task is to translate *ONLY* the natural language human-readable text intended for code explanation (comments, explanations, descriptive text) "
+            f"within the provided programming task docstring from {source_language} back to English. "
+            f"\n\n**You must follow these strict rules:** "            
+            # f"\n1.  Handle specific sections like `Args:`, `Returns:`, `Examples:` by translating the section title and the descriptive text, while preserving the formatting and any associated code/type information. "
+            f"\n1.  You must translate everything that was in {source_language} back to English. " 
+            # f"\n2.  **DO NOT** translate any actual code elements (function names, class/variable names, keywords, operators, and syntax). "
+            # f"\n2.  **DO NOT** translate any actual code elements (e.g. function names, class/variable names, keywords, operators, syntax, lines starting with `>>>`) in the code snippets. "
+            f"\n2.  **PRESERVE** the exact original code structure, indentation (spaces or tabs), line breaks, and overall formatting of the code snippets in the output. "
+            # f"\n4.  **PRESERVE** examples within the text (e.g., lines starting with `>>>` or code snippets shown for illustration without translation. Keep them exactly as they appear in the input. "
+            f"\n3.  **DO NOT** wrap the output in Markdown code fences (like ```python ... ```) or any other formatting not present in the original input. The output structure must exactly match the input structure."
+            f"\n4.  You must output the text with the translated English text and all the code elements (lines starting with `>>>`) based on above rules. "
+            f"\n\n**Translation task**\nTranslate below text using the provided instructions:\n{text}"
+            # f"\n\n**Demonstration Example 1:**\n*Input:*\n"
+        )
 
     data = {
         "model": "gpt-4o",
@@ -250,7 +299,7 @@ def calculate_bert_score_rescaling(original_text: str, back_translated_text: str
 def extract_instruction(text):
     # Pattern to match the instruction line with any programming language
     default_output = r"Provide a concise natural language description \(docstring\) of the programming code in English using at most 500 characters\."
-    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
+    pattern = r"Provide a concise natural language description \(docstring\) of the ([A-Za-z0-9#+]{1,15}) code in English using at most 500 characters\."
     
     # Search for the pattern in the text
     match = re.search(pattern, text)
@@ -382,11 +431,11 @@ def process_item(item: Dict[str, Any], target_languages: List[str], max_iteratio
                     if dataset_name == "explanation" and field == "instruction":
                         if rescaling:
                             print(f"        Calculating BERTScore with rescaling on...")
-                            # score = calculate_bert_score_rescaling(extracted_text, back_translated_text)
-                            score = calculate_bert_score_rescaling(
-                                normalize_text(extracted_text),
-                                normalize_text(back_translated_text)
-                            )
+                            score = calculate_bert_score_rescaling(extracted_text, back_translated_text)
+                            # score = calculate_bert_score_rescaling(
+                            #     normalize_text(extracted_text),
+                            #     normalize_text(back_translated_text)
+                            # )
                         else:
                             print(f"        Calculating BERTScore...")
                             # score = calculate_bert_score(extracted_text, back_translated_text)
