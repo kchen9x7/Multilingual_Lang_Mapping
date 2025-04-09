@@ -312,7 +312,7 @@ def extract_instruction(text):
 
 def replace_instruction(original_text, translated_instruction):
     # Pattern to match the instruction line with any programming language
-    pattern = r"Provide a concise natural language description \(docstring\) of the (\w+) code in English using at most 500 characters\."
+    pattern = r"Provide a concise natural language description \(docstring\) of the ([A-Za-z0-9#+]{1,15}) code in English using at most 500 characters\."
  
     # Replace the matched pattern with the translated instruction
     modified_text = re.sub(pattern, translated_instruction, original_text)
