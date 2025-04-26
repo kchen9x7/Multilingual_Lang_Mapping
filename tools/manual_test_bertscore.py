@@ -272,27 +272,31 @@ def main():
     '''
     Problematic case from our experiment
     '''
-    # source_docstring = " Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    "
-    # translated_docstring = "找到给定正整数的最大质因数。\n\n该整数被假设为恰好是两个不同质数的乘积。函数从最小的质数（2）开始迭代潜在因数，并检查它们是否是'n'的因数。如果找到一个因数，函数返回'n'除以该因数的结果，即较大的质因数。如果在'n'的平方根范围内没有找到因数，则'n'本身是一个质数，并返回作为最大的质因数。\n\n参数：\nn (int): 要分解的正整数，它是两个不同质数的乘积。\n\n返回：\nint: 'n'的两个质因数中较大的一个。\n\n示例：\n>>> largest_prime_factor(21)\n7\n>>> largest_prime_factor(15)\n5"
-    # translated_docstring = " આ ફંક્શનનો ઇનપુટ એ સ્ટ્રિંગ છે જેમાં અનેક જૂથો નેસ્ટેડ પેરન્થિસિસ છે. તમારું લક્ષ્ય એ છે કે \n    તે જૂથોને અલગ સ્ટ્રિંગમાં અલગ પાડવું અને તે જૂથોની યાદી પરત આપવી.\n    અલગ જૂથો સંતુલિત છે (દરેક ખોલેલ બ્રેસ યોગ્ય રીતે બંધ છે) અને એકબીજા અંદર નેસ્ટેડ નથી.\n    ઇનપુટ સ્ટ્રિંગમાં કોઈપણ ખાલી જગ્યાઓને અવગણો.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    "
+    # source_docstring = "Calculates the monthly repayment amount for an equal principal repayment loan.\nIn this repayment model, each month's repayment amount consists of two parts:\n- A constant principal payment, which is the total loan amount divided by the total number of months.\n- The interest payment, which is the outstanding loan amount multiplied by the monthly interest rate.\nInput:\n- $loanAmount (int): The total loan amount in ten-thousands.\n- $monthlyInterestRate (float): The monthly interest rate.\n- $totalMonths (int): The total number of months for loan repayment.\nOutput: Returns the first month's repayment amount as an integer (in Yuan). Discard the decimal point and do not round\nExample: calculateMonthlyRepayment(500, 0.004, 360) should return 33889."
+    # translated_docstring = "मासिक पुनर्भुगतान राशि की गणना एक समान मूलधन पुनर्भुगतान ऋण के लिए करता है। इस पुनर्भुगतान मॉडल में, प्रत्येक महीने की पुनर्भुगतान राशि दो भागों में होती है:\n- एक स्थिर मूलधन भुगतान, जो कुल ऋण राशि को कुल महीनों की संख्या से विभाजित करता है।\n- ब्याज भुगतान, जो बकाया ऋण राशि को मासिक ब्याज दर से गुणा करता है।\nइनपुट:\n- $loanAmount (int): कुल ऋण राशि दस-हजारों में।\n- $monthlyInterestRate (float): मासिक ब्याज दर।\n- $totalMonths (int): ऋण पुनर्भुगतान के लिए कुल महीनों की संख्या।\nआउटपुट: पहले महीने की पुनर्भुगतान राशि को पूर्णांक (युआन में) के रूप में लौटाता है। दशमलव बिंदु को हटा दें और राउंड न करें।\nउदाहरण: calculateMonthlyRepayment(500, 0.004, 360) को 33889 लौटाना चाहिए।"
 
-    source_prompt = "\n /*\n  Check if in given list of numbers, are any two numbers closer to each other than\n  given threshold.\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn has_close_elements(numbers:Vec<f32>, threshold: f32) -> bool{\n "
-    # manually_fixed_translated_prompt = " /*\n  ਜਾਂਚ ਕਰੋ ਕਿ ਦਿੱਤੀ ਗਈ ਨੰਬਰਾਂ ਦੀ ਸੂਚੀ ਵਿੱਚ, ਕੀ ਕੋਈ ਦੋ ਨੰਬਰ ਇੱਕ ਦੂਜੇ ਦੇ ਨਜ਼ਦੀਕ ਹਨ\n  ਦਿੱਤੇ ਗਏ ਥ੍ਰੈਸ਼ਹੋਲਡ ਤੋਂ।\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn has_close_elements(numbers:Vec<f32>, threshold: f32) -> bool{\n "
-    manually_fixed_translated_prompt = " /*\n  ලබා දී ඇති සංඛ්‍යා ලැයිස්තුවේ, ලබා දී ඇති සීමාවට වඩා ආසන්නව ඇති සංඛ්‍යා යුගල කිසිවක් තිබේදැයි පරීක්ෂා කරන්න.\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn has_close_elements(numbers:Vec<f32>, threshold: f32) -> bool{\n "
+    source_prompt = " /*\n  You're given a list of deposit and withdrawal operations on a bank account that starts with\n  zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n  at that point function should return True. Otherwise it should return False.\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn below_zero(operations:Vec<i32>) -> bool{\n "
+    manually_fixed_translated_prompt = " /*\n  你有一个关于银行账户的存款和取款操作列表，该账户从零余额开始。你的任务是检测账户余额是否在任何时候低于零，\n  如果是这样，函数应该返回True。否则，它应该返回False。\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn below_zero(operations:Vec<i32>) -> bool{"
+
+    # manually_fixed_translated_prompt = " /*\n  ලබා දී ඇති සංඛ්‍යා ලැයිස්තුවේ, ලබා දී ඇති සීමාවට වඩා ආසන්නව ඇති සංඛ්‍යා යුගල කිසිවක් තිබේදැයි පරීක්ෂා කරන්න.\n  \n */\n \n use std::{slice::Iter, cmp::{max, self}, mem::replace, collections::{HashSet, HashMap}, ops::Index, ascii::AsciiExt};\n use rand::Rng;\n use regex::Regex;\n use md5;\n use std::any::{Any, TypeId};\n \n fn has_close_elements(numbers:Vec<f32>, threshold: f32) -> bool{\n "
     '''
     modified_instruction_translation: translated_instruction, but removed translation for below sentence in English:
     "Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem:\n"
     '''
-    # modified_instruction_translation = "找出给定正整数的最大质因数。\n    \n    假设该整数是两个不同质数的乘积。\n    该函数从最小的质数（2）开始迭代可能的因数，并检查它们是否是 'n' 的因数。\n    如果找到一个因数，函数返回 'n' 除以该因数的结果，即较大的质因数。\n    如果在 'n' 的平方根范围内没有找到因数，那么 'n' 本身就是一个质数，并作为最大质因数返回。\n    \n    参数:\n    n (int): 要分解的正整数，它是两个不同质数的乘积。\n    \n    返回:\n    int: 'n' 的两个质因数中较大的一个。\n    \n    示例:\n    >>> largest_prime_factor(21)\n    7\n    >>> largest_prime_factor(15)\n    5"
-    # modified_instruction_translation = "दिए गए धनात्मक पूर्णांक का सबसे बड़ा अभाज्य गुणनखंड खोजें।\n    \n    यह पूर्णांक ठीक दो भिन्न अभाज्य संख्याओं का गुणनफल माना जाता है।\n    फ़ंक्शन संभावित गुणनखंडों के माध्यम से सबसे छोटे अभाज्य संख्या (2) से शुरू होकर \n    यह जांचता है कि क्या वे 'n' के गुणनखंड हैं। यदि कोई गुणनखंड पाया जाता है, तो \n    फ़ंक्शन 'n' को इस गुणनखंड से विभाजित कर देता है, जो कि बड़ा अभाज्य गुणनखंड है। \n    यदि 'n' के वर्गमूल तक कोई गुणनखंड नहीं पाया जाता है, तो 'n' स्वयं एक अभाज्य \n    संख्या है और इसे सबसे बड़े अभाज्य गुणनखंड के रूप में लौटाया जाता है।\n    \n    Args:\n    n (int): धनात्मक पूर्णांक जिसे गुणनखंडित करना है, जो दो भिन्न अभाज्य संख्याओं का गुणनफल है।\n    \n    Returns:\n    int: 'n' के दो अभाज्य गुणनखंडों में से बड़ा।\n    \n    उदाहरण:\n    >>> largest_prime_factor(21)\n    7\n    >>> largest_prime_factor(15)\n    5"
+    # source_instruction = "Write a Kotlin function `fun findPrimePairs(maxNumber: Int): List<Pair<Int, Int>>` to solve the following problem:\nFinds all prime pairs where each prime is less than or equal to a given number and the pair differs by 2.\nA prime pair is defined as two prime numbers where the difference between them is exactly 2.\nExample:\n>>> findPrimePairs(10)\n[(3, 5), (5, 7)]\n>>> findPrimePairs(100)\n[(3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73)]"
+    # modified_instruction_translation = "Գրեք Kotlin ֆունկցիա `fun findPrimePairs(maxNumber: Int): List<Pair<Int, Int>>` հետևյալ խնդիրը լուծելու համար:\nԳտնում է բոլոր պարզ զույգերը, որտեղ յուրաքանչյուր պարզ թիվ փոքր կամ հավասար է տրված թվին, և զույգը տարբերվում է 2-ով:\nՊարզ զույգը սահմանվում է որպես երկու պարզ թվեր, որոնց միջև տարբերությունը ճիշտ 2 է:\nՕրինակ:\n>>> findPrimePairs(10)\n[(3, 5), (5, 7)]\n>>> findPrimePairs(100)\n[(3, 5), (5, 7), (11, 13), (17, 19), (29, 31), (41, 43), (59, 61), (71, 73)]"
+    
 
-    # lang = "Chinese"'
-    # lang = "Punjabi"
-    lang = "Sinhala"
+    lang = "Chinese"
+    # lang = "Hausa"
+    # lang = "Bulgarian"
     prompt_type = "prompt"
+    # prompt_type = "docstring"
+    # prompt_type = "instruction"
+    # dataset_name = "explanation"
     dataset_name = "generation"
     # back_translated_docstring = back_translate_with_gpt(translated_docstring, lang, prompt_type, dataset_name)
-    # back_translated_docstring = back_translate_with_gpt(modified_instruction_translation, lang, prompt_type, dataset_name)
+    # back_translated_instruction = back_translate_with_gpt(modified_instruction_translation, lang, prompt_type, dataset_name)
     translated_prompt = translate_with_gpt(source_prompt, lang, prompt_type, dataset_name)
     back_translated_prompt = back_translate_with_gpt(translated_prompt, lang, prompt_type, dataset_name)
     back_translated_prompt_manual_fix = back_translate_with_gpt(manually_fixed_translated_prompt, lang, prompt_type, dataset_name)
@@ -300,7 +304,6 @@ def main():
     '''
     NON-Problematic case from our experiment
     '''
-    # source_instruction = "Write a python function 'def largest_prime_factor(n: int) -> int:' to solve the following problem:\n\n    Find the largest prime factor of a given positive integer.\n    \n    The integer is assumed to be the product of exactly two distinct prime numbers. \n    The function iterates through potential factors starting from the smallest prime (2) \n    and checks if they are a factor of 'n'. If a factor is found, the function returns \n    the division of 'n' by this factor, which is the larger prime factor. If no factors \n    are found up to the square root of 'n', then 'n' itself is a prime number and is \n    returned as the largest prime factor.\n    \n    Args:\n    n (int): The positive integer to factorize, which is the product of two distinct primes.\n    \n    Returns:\n    int: The larger of the two prime factors of 'n'.\n    \n    Examples:\n    >>> largest_prime_factor(21)\n    7\n    >>> largest_prime_factor(15)\n    5\n    "
     # translated_instruction = "编写一个Python函数 'def largest_prime_factor(n: int) -> int:' 来解决以下问题：\n\n    找出给定正整数的最大质因数。\n    \n    假设该整数是两个不同质数的乘积。\n    该函数从最小的质数（2）开始迭代可能的因数，并检查它们是否是 'n' 的因数。\n    如果找到一个因数，函数返回 'n' 除以该因数的结果，即较大的质因数。\n    如果在 'n' 的平方根范围内没有找到因数，那么 'n' 本身就是一个质数，并作为最大质因数返回。\n    \n    参数:\n    n (int): 要分解的正整数，它是两个不同质数的乘积。\n    \n    返回:\n    int: 'n' 的两个质因数中较大的一个。\n    \n    示例:\n    >>> largest_prime_factor(21)\n    7\n    >>> largest_prime_factor(15)\n    5"
     # translated_instruction = "एक पायथन फ़ंक्शन 'def largest_prime_factor(n: int) -> int:' लिखें ताकि निम्नलिखित समस्या का समाधान किया जा सके:\n\n    दिए गए धनात्मक पूर्णांक का सबसे बड़ा अभाज्य गुणनखंड खोजें।\n    \n    यह पूर्णांक ठीक दो भिन्न अभाज्य संख्याओं का गुणनफल माना जाता है।\n    फ़ंक्शन संभावित गुणनखंडों के माध्यम से सबसे छोटे अभाज्य संख्या (2) से शुरू होकर \n    यह जांचता है कि क्या वे 'n' के गुणनखंड हैं। यदि कोई गुणनखंड पाया जाता है, तो \n    फ़ंक्शन 'n' को इस गुणनखंड से विभाजित कर देता है, जो कि बड़ा अभाज्य गुणनखंड है। \n    यदि 'n' के वर्गमूल तक कोई गुणनखंड नहीं पाया जाता है, तो 'n' स्वयं एक अभाज्य \n    संख्या है और इसे सबसे बड़े अभाज्य गुणनखंड के रूप में लौटाया जाता है।\n    \n    Args:\n    n (int): धनात्मक पूर्णांक जिसे गुणनखंडित करना है, जो दो भिन्न अभाज्य संख्याओं का गुणनफल है।\n    \n    Returns:\n    int: 'n' के दो अभाज्य गुणनखंडों में से बड़ा।\n    \n    उदाहरण:\n    >>> largest_prime_factor(21)\n    7\n    >>> largest_prime_factor(15)\n    5"
     
@@ -311,10 +314,17 @@ def main():
     # back_translated_instruction = back_translate_with_gpt(translated_instruction, lang, prompt_type, dataset_name)
 
     # score_docstring = calculate_bert_score_rescaling(source_docstring, back_translated_docstring)
+
+    # score_instruction = calculate_bert_score_rescaling(
+    #     normalize_text(source_instruction),
+    #     normalize_text(back_translated_instruction)
+    # )
+
     # score_docstring = calculate_bert_score_rescaling(
     #     normalize_text(source_docstring),
     #     normalize_text(back_translated_docstring)
     # )
+
     score_prompt = calculate_bert_score_rescaling(
         normalize_text(source_prompt),
         normalize_text(back_translated_prompt)
@@ -337,10 +347,14 @@ def main():
     print("\nThe BERTScore of this prompt translation example based on GPT translation is: ", score_prompt)
 
     print("\nback_translated_prompt based on manually_fixed_translated_prompt is: \n", back_translated_prompt_manual_fix)
-    print("\nThe BERTScore of this prompt translation example after manual fixing is: ", score_prompt_manual_fix)
+    print("\nThe BERTScore of this prompt translation example after manual fixing is: \n", score_prompt_manual_fix)
+
+    # print("\nsource_docstring is: \n", source_docstring)
+    # print("\nback_translated_docstring is: \n", back_translated_docstring)
+    # print("\nThe BERTScore of this docstring translation example is: \n", score_docstring)
 
     # print("\nsource_instruction is: \n", source_instruction)
-    # print("\nback_translated_instruction is: ", back_translated_instruction)
+    # print("\nback_translated_instruction is: \n", back_translated_instruction)
     # print("\nThe BERTScore of this instruction translation example is: \n", score_instruction)
 
 
