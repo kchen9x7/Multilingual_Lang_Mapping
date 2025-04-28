@@ -338,7 +338,7 @@ def main():
     # score_instruction = calculate_bert_score_rescaling(source_instruction, back_translated_instruction)
 
     '''
-    Comment out any print statement based on what you are not testing
+    Comment out any print statement based on the testing scenario
     '''
     print("\nsource_prompt is: \n", source_prompt)
 
