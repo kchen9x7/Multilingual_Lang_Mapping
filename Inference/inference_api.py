@@ -16,7 +16,7 @@ SYSTEM_PROMPT = "You are a helpful, respectful and honest assistant with a deep 
     If you don't know the answer to a question, please don't share false information. \
     Please output only code component as your answer without explanation."
 
-APPEND_PROMPT = "\n    Please make sure to only output code as your answer without explanation."
+APPEND_PROMPT = "\n    Please make sure to only output executable code as your answer without explanation."
 
 # --- API Configuration ---
 DEEPSEEK_API_BASE = "https://api.deepseek.com/v1"
@@ -42,7 +42,7 @@ def call_openai_api(
             temperature=temperature,
             top_p=top_p,
             timeout=timeout,
-            system=system
+            # system=system
         )
         if response.choices and len(response.choices) > 0:
             content = response.choices[0].message.content
