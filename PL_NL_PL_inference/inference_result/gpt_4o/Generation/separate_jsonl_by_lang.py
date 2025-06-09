@@ -90,8 +90,8 @@ def create_output_files(translations, results):
 
 def main():
     # File paths
-    translations_file = 'deepseek_masked_C_to_JS_explanation_to_generation_translation.jsonl'
-    results_file = 'gpt4o_masked_C_to_JavaScript_generation_hard_results.jsonl'
+    translations_file = 'deepseek_masked_C_to_CPP_explanation_to_generation_translation.jsonl'
+    results_file = 'deepseek_masked_C_to_CPP_explanation_to_generation_code_result.jsonl'
 
     current_directory = os.path.dirname(os.path.abspath(__file__))
     translations_file_filepath = os.path.join(current_directory, translations_file)
