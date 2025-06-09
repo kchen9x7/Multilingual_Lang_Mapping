@@ -385,9 +385,9 @@ def main():
             print(f"Failed to initialize OpenAI client: {e}")
             return
     elif args.api_provider == 'deepseek':
-        api_key = os.getenv("DEEPSEEK_API_KEY2")
+        api_key = os.getenv("DEEPSEEK_API_KEY")
         if not api_key:
-            raise ValueError("DEEPSEEK_API_KEY2 not found in environment variables or .env file.")
+            raise ValueError("DEEPSEEK_API_KEY not found in environment variables or .env file.")
         client_or_key = api_key
         model_id = args.deepseek_model
         api_base = DEEPSEEK_API_BASE
